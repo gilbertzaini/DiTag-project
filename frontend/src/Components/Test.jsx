@@ -1,10 +1,11 @@
 import React from 'react'
+import { Heading } from '@chakra-ui/react'
 
 function Test() {
   return (
-    <p className="text-3xl font-bold underline">
+    <Heading bg={"red"} className="text-3xl font-bold underline">
       Hello world!
-    </p>
+    </Heading>
   )
 }
 
