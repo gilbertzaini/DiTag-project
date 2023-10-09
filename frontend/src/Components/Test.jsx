@@ -1,13 +1,14 @@
 import React from 'react'
-import { Heading } from '@chakra-ui/react'
-
+import { Container, Heading, Text } from '@chakra-ui/react'
 
 function Test() {
   return (
-    <Heading>
-      Welcome to DiTag Home Page!
-    </Heading>
+    <Container>
+      <Heading>Welcome to DiTag Home Page!</Heading>
+      <Text>Test</Text>
+    </Container>
   )
 }
+
 
 export default Test
