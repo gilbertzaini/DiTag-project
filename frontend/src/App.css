@@ -1,0 +1,19 @@
+
+.App {
+    text-align: center;
+    background-color: #050505;
+  }
+  
+.App-header {
+    background-color: linear-gradient(circle, #010d14, #6c5737);
+    min-height: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: rgb(250, 247, 247);
+  }
+  
+  /* Add any additional styles here */
+  
