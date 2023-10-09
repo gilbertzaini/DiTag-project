@@ -23,7 +23,6 @@ const Navbar = () => {
           <Image h={"5em"} src={logo} objectFit={"contain"} />
           <Spacer />
           <Link>Home</Link>
-          <Link>About</Link>
           <Link>Register DiTag</Link>
           <Link>Monitoring</Link>
           <Link>Review</Link>
