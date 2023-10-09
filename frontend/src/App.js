@@ -1,16 +1,17 @@
 import "./App.css";
-import Test from "./Components/Test";
 import * as React from "react";
 import { ChakraProvider } from "@chakra-ui/react";
+import Index from "./Pages";
 
 function App() {
   return (
     <ChakraProvider>
-      {/* <div className="App"> */}
-        <div className="App-header">
-          <Test />
-        </div>
-      {/* </div> */}
+      <div className="App">
+        {/* <div className="App-header"> */}
+          {/* <Test /> */}
+        {/* </div> */}
+        <Index/>
+      </div>
     </ChakraProvider>
   );
 }

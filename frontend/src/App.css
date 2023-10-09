@@ -1,17 +1,39 @@
-
 .App {
-    text-align: center;
-    background-color: #050505;
-  }
-  
+  text-align: center;
+  background-color: #ecf9ff;
+  font-family: Poppins;
+  min-height: 100vh;
+}
+
 .App-header {
-    background-color: linear-gradient(circle, #010d14, #6c5737);
-    min-height: 100px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
-    color: rgb(250, 247, 247);
-  }
-  
+  background-color: linear-gradient(circle, #010d14, #6c5737);
+  min-height: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: rgb(250, 247, 247);
+}
+
+p {
+  font-size: 0.9rem;
+  color: #9090A7;
+}
+
+#navbar {
+  font-size: 0.9rem;
+  color: #828297;
+}
+
+#navbar a {
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+.macOpt {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-right: 7px;
+}
