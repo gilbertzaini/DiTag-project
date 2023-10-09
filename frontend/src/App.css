@@ -3,6 +3,8 @@
   background-color: #ecf9ff;
   font-family: Poppins;
   min-height: 100vh;
+  max-width: 100vw;
+  overflow-x: hidden;
 }
 
 .App-header {

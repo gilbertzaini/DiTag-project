@@ -11,7 +11,7 @@ function App() {
         {/* <div className="App-header"> */}
           {/* <Test /> */}
         {/* </div> */}
-        {/* <Index/> */}
+        <Index/>
         <LoginPage/>
       </div>
     </ChakraProvider>

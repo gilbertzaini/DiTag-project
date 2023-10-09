@@ -1,7 +1,8 @@
 // LoginPage.js
-import { Text, Flex, Box, Heading } from "@chakra-ui/react";
+import { Text, Flex, Box, Heading, Link, Image } from "@chakra-ui/react";
 import React, { useState } from "react";
 import "../LoginPage.css";
+import logo from "../Assets/logo.png";
 
 function LoginPage() {
   const [name, setName] = useState("");
@@ -29,9 +30,9 @@ function LoginPage() {
 
   return (
     <>
-      <Flex minH={"100vh"} w={"100vw"}>
-        <Box w={"50vw"} h={"100vh"} position={"relative"} bg={"#f3dadf"}>
-          <Box position={"absolute"} zIndex={1} top={0}>
+      <Flex minH={"100vh"} w={"100vw"} bg={"#f3dadf"}>
+        <Box w={"40vw"} h={"100vh"} position={"relative"}>
+          <Box position={"absolute"} zIndex={1} top={20} left={10}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="526"
@@ -48,7 +49,7 @@ function LoginPage() {
             </svg>
           </Box>
 
-          <Box position={"absolute"} zIndex={2}>
+          <Box position={"absolute"} zIndex={2} top={10} right={-10}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="530"
@@ -64,7 +65,7 @@ function LoginPage() {
               />
             </svg>
           </Box>
-          <Box pos={"absolute"} zIndex={3}>
+          <Box pos={"absolute"} zIndex={3} bottom={0}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="550"
@@ -80,9 +81,12 @@ function LoginPage() {
               />
             </svg>
           </Box>
+          
+          <Image src={logo} w={"50%"} zIndex={4} pos={"absolute"} left={"50%"} top={"50%"} transform={"translate(-50%, -50%)"}/>
         </Box>
         <Flex
-          width={"55%"}
+          bg={"#FCFEFF"}
+          width={"60%"}
           height={"100vh"}
           direction={"column"}
           justifyContent={"center"}
@@ -90,12 +94,18 @@ function LoginPage() {
           id="loginInput"
           textAlign={"start"}
           className="login-container"
+          zIndex={5}
         >
-          <Heading textAlign={"center"} fontSize={"1.4rem"} fontWeight={500}>
+          <Heading
+            textAlign={"center"}
+            fontSize={"1.7rem"}
+            color={"black"}
+            fontWeight={500}
+          >
             Create your Account
           </Heading>
           <div className="input-container">
-            <Text>Full Name</Text>
+            <Text className="loginLabel">Full Name</Text>
             <input
               type="text"
               placeholder="Enter your Full Name here"
@@ -104,7 +114,7 @@ function LoginPage() {
             />
           </div>
           <div className="input-container">
-            <Text>Email</Text>
+            <Text className="loginLabel">Email</Text>
             <input
               type="text"
               placeholder="Enter your Email here"
@@ -113,7 +123,7 @@ function LoginPage() {
             />
           </div>
           <div className="input-container">
-            <Text>Password</Text>
+            <Text className="loginLabel">Password</Text>
             <input
               type="password"
               placeholder="Enter your Password here"
@@ -124,6 +134,10 @@ function LoginPage() {
           <button className="login-button" onClick={handleLogin}>
             Create Account
           </button>
+          <Flex mt={2} w={"60%"} fontSize={"1.2rem"} justifyContent={"start"} alignItems={"center"}>
+            <Text>Already have an account?</Text>
+            <Link ml={1}><Text color={"lightblue"}>Log In</Text></Link>
+          </Flex>
         </Flex>
       </Flex>
     </>
