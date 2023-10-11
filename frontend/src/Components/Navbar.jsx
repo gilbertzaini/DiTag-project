@@ -1,6 +1,7 @@
 import React from "react";
 import { Box, Button, Flex, Image, Link, Spacer } from "@chakra-ui/react";
 import logo from "../Assets/logo.png";
+import { Link as ReactLink } from "react-router-dom";
 
 const Navbar = () => {
   return (
@@ -28,12 +29,17 @@ const Navbar = () => {
           <Link>Review</Link>
           <Spacer />
           <Box>
-            <Link color={"#000000"}>Sign In</Link>
-            <Link>
-              <Button h={"3.5em"} bg={"#060640"} color={"#FFFFFF"} fontWeight={"normal"}>
-                Notifications
-              </Button>
-            </Link>
+            <ReactLink to="/login" color={"#000000"}>
+              Sign In
+            </ReactLink>
+            <Button
+              h={"3.5em"}
+              bg={"#060640"}
+              color={"#FFFFFF"}
+              fontWeight={"normal"}
+            >
+              Notifications
+            </Button>
           </Box>
         </Flex>
       </Flex>

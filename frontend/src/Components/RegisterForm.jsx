@@ -1,10 +1,11 @@
-// LoginPage.js
-import { Text, Flex, Box, Heading, Link, Image } from "@chakra-ui/react";
+// LoginForm.js
+import { Text, Flex, Box, Heading, Image } from "@chakra-ui/react";
 import React, { useState } from "react";
-import "../LoginPage.css";
+import {Link as ReactLink} from "react-router-dom";
+import "../form.css";
 import logo from "../Assets/logo.png";
 
-function LoginPage() {
+function RegisterForm() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -30,7 +31,7 @@ function LoginPage() {
 
   return (
     <>
-      <Flex minH={"100vh"} w={"100vw"} bg={"#f3dadf"}>
+      <Flex minH={"100vh"} w={"100vw"} bg={"#f3dadf"} overflow={"hidden"}>
         <Box w={"40vw"} h={"100vh"} position={"relative"}>
           <Box position={"absolute"} zIndex={1} top={20} left={10}>
             <svg
@@ -41,15 +42,15 @@ function LoginPage() {
               fill="none"
             >
               <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
+                fillRule="evenodd"
+                clipRule="evenodd"
                 d="M247.031 4.45225C311.888 13.4938 365.692 60.4527 413.925 117.438C465.431 178.291 524.477 243.638 525.969 334.006C527.477 425.385 473.786 499.204 421.23 560.054C372.224 616.793 312.485 649.937 247.031 656.962C174.47 664.749 92.5661 668.06 41.4209 600.816C-9.56762 533.778 1.65127 428.197 1.39477 334.006C1.13686 239.295 -10.7804 133.383 39.9626 65.3046C91.111 -3.31772 173.881 -5.74547 247.031 4.45225Z"
                 fill="#95F8ED"
               />
             </svg>
           </Box>
 
-          <Box position={"absolute"} zIndex={2} top={10} right={-10}>
+          <Box position={"absolute"} zIndex={2} top={10} left={"30%"}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="530"
@@ -58,8 +59,8 @@ function LoginPage() {
               fill="none"
             >
               <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
+                fillRule="evenodd"
+                clipRule="evenodd"
                 d="M243.061 4.70985C344.08 -11.5616 469.016 13.1371 518.064 97.4432C564.291 176.902 462.842 257.032 441.159 345.214C419.587 432.942 480.924 558.045 394.922 598.235C309.015 638.381 231.579 530.416 151.752 480.458C93.4621 443.979 22.1083 417.422 4.45926 353.873C-13.6655 288.611 26.8082 227.115 65.6198 170.319C112.978 101.017 156.485 18.6548 243.061 4.70985Z"
                 fill="#01C1AC"
               />
@@ -74,8 +75,8 @@ function LoginPage() {
               fill="none"
             >
               <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
+                fillRule="evenodd"
+                clipRule="evenodd"
                 d="M299.963 0.108262C343.049 -1.30402 384.815 11.1816 421.197 32.844C459.469 55.6319 489.605 87.2747 510.043 125.192C533.503 168.718 560.633 217.191 545.742 263.911C530.771 310.879 473.499 329.836 434.422 362.443C389.486 399.939 360.144 468.416 299.963 468.997C239.858 469.576 213.227 396.651 163.477 365.057C111.055 331.766 17.1311 337.391 2.01656 279.786C-13.4351 220.896 63.789 178.035 101.465 128.716C126.448 96.014 149.433 63.4714 184.742 40.5946C219.324 18.189 257.939 1.48575 299.963 0.108262Z"
                 fill="#00E5CC"
               />
@@ -136,7 +137,7 @@ function LoginPage() {
           </button>
           <Flex mt={2} w={"60%"} fontSize={"1.2rem"} justifyContent={"start"} alignItems={"center"}>
             <Text>Already have an account?</Text>
-            <Link ml={1}><Text color={"lightblue"}>Log In</Text></Link>
+            <ReactLink to="/login" ml={1}><Text color={"lightblue"}>Log In</Text></ReactLink>
           </Flex>
         </Flex>
       </Flex>
@@ -144,4 +145,4 @@ function LoginPage() {
   );
 }
 
-export default LoginPage;
+export default RegisterForm;

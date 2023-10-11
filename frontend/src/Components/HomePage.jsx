@@ -13,6 +13,7 @@ import { FaStar } from "react-icons/fa";
 import { LuQuote } from "react-icons/lu";
 import { AiOutlineSearch, AiFillPlayCircle } from "react-icons/ai";
 import React from "react";
+import { Link as ReactLink } from "react-router-dom";
 import logo from "../Assets/logo.png";
 import logo_no_text from "../Assets/logo_no_text.png";
 
@@ -45,16 +46,18 @@ const HomePage = () => {
           </Flex>
 
           <Flex mt={3} id="signin">
-            <Button
-              h={"3.5em"}
-              w={"8rem"}
-              bg={"#060640"}
-              color={"#FFFFFF"}
-              fontWeight={"normal"}
-              mr={5}
-            >
-              Sign In
-            </Button>
+            <ReactLink to="/login">
+              <Button
+                h={"3.5em"}
+                w={"8rem"}
+                bg={"#060640"}
+                color={"#FFFFFF"}
+                fontWeight={"normal"}
+                mr={5}
+              >
+                Sign In
+              </Button>
+            </ReactLink>
             <AiFillPlayCircle size={55} color="#00E5CC" />
           </Flex>
 
@@ -73,7 +76,7 @@ const HomePage = () => {
               <LuQuote size={32} fill="#00E5CC" color="#00E5CC" />
               <Spacer />
               <Flex alignItems={"end"} pb={1}>
-                <FaStar size={20} color="FFBF00" />
+                <FaStar size={20} color="#FFBF00" />
                 <Text fontSize={"0.7em"} ml={1}>
                   4.9
                 </Text>
