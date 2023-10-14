@@ -1,14 +1,16 @@
 // LoginForm.js
 import { Text, Flex, Box, Heading, Image } from "@chakra-ui/react";
 import React, { useState } from "react";
-import {Link as ReactLink} from "react-router-dom";
+import { Link as ReactLink, useNavigate } from "react-router-dom";
 import "../form.css";
 import logo from "../Assets/logo.png";
+import axios from "axios";
 
 function RegisterForm() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const handleNameChange = (e) => {
     setName(e.target.value);
@@ -22,13 +24,27 @@ function RegisterForm() {
     setPassword(e.target.value);
   };
 
-  const handleLogin = () => {
-    // You can add authentication logic here
-    console.log("Name:", name);
-    console.log("Email:", email);
-    console.log("Password:", password);
-  };
+  // const handleLogin = () => {
+  //   // You can add authentication logic here
+  //   console.log("Name:", name);
+  //   console.log("Email:", email);
+  //   console.log("Password:", password);
+  // };
 
+  const saveUser = async (e) => {
+    e.preventDefault();
+
+    try {
+      await axios.post("http://localhost:8080/register", {
+        name,
+        email,
+        password,
+      });
+      navigate("/login");
+    } catch (exception) {
+      console.log(exception);
+    }
+  };
   return (
     <>
       <Flex minH={"100vh"} w={"100vw"} bg={"#f3dadf"} overflow={"hidden"}>
@@ -82,8 +98,16 @@ function RegisterForm() {
               />
             </svg>
           </Box>
-          
-          <Image src={logo} w={"50%"} zIndex={4} pos={"absolute"} left={"50%"} top={"50%"} transform={"translate(-50%, -50%)"}/>
+
+          <Image
+            src={logo}
+            w={"50%"}
+            zIndex={4}
+            pos={"absolute"}
+            left={"50%"}
+            top={"50%"}
+            transform={"translate(-50%, -50%)"}
+          />
         </Box>
         <Flex
           bg={"#FCFEFF"}
@@ -96,7 +120,13 @@ function RegisterForm() {
           textAlign={"start"}
           className="login-container"
           zIndex={5}
+          pos={"relative"}
         >
+          <ReactLink to={"/"}>
+            <Text pos={"absolute"} top={5} left={5} color={"black"}>
+              {"< Back"}
+            </Text>
+          </ReactLink>
           <Heading
             textAlign={"center"}
             fontSize={"1.7rem"}
@@ -105,39 +135,55 @@ function RegisterForm() {
           >
             Create your Account
           </Heading>
-          <div className="input-container">
-            <Text className="loginLabel">Full Name</Text>
-            <input
-              type="text"
-              placeholder="Enter your Full Name here"
-              value={name}
-              onChange={handleNameChange}
-            />
-          </div>
-          <div className="input-container">
-            <Text className="loginLabel">Email</Text>
-            <input
-              type="text"
-              placeholder="Enter your Email here"
-              value={email}
-              onChange={handleEmailChange}
-            />
-          </div>
-          <div className="input-container">
-            <Text className="loginLabel">Password</Text>
-            <input
-              type="password"
-              placeholder="Enter your Password here"
-              value={password}
-              onChange={handlePasswordChange}
-            />
-          </div>
-          <button className="login-button" onClick={handleLogin}>
-            Create Account
-          </button>
-          <Flex mt={2} w={"60%"} fontSize={"1.2rem"} justifyContent={"start"} alignItems={"center"}>
+          <form onSubmit={saveUser}>
+            <div className="input-container">
+              <Text className="loginLabel">Full Name</Text>
+              <input
+                type="text"
+                placeholder="Enter your Full Name here"
+                value={name}
+                name="name"
+                onChange={handleNameChange}
+                required
+              />
+            </div>
+            <div className="input-container">
+              <Text className="loginLabel">Email</Text>
+              <input
+                type="text"
+                placeholder="Enter your Email here"
+                value={email}
+                name="email"
+                onChange={handleEmailChange}
+                required
+              />
+            </div>
+            <div className="input-container">
+              <Text className="loginLabel">Password</Text>
+              <input
+                type="password"
+                placeholder="Enter your Password here"
+                value={password}
+                name="password"
+                onChange={handlePasswordChange}
+                required
+              />
+            </div>
+            <button type="submit" className="login-button">
+              Create Account
+            </button>
+          </form>
+          <Flex
+            mt={2}
+            w={"60%"}
+            fontSize={"1.2rem"}
+            justifyContent={"start"}
+            alignItems={"center"}
+          >
             <Text>Already have an account?</Text>
-            <ReactLink to="/login" ml={1}><Text color={"lightblue"}>Log In</Text></ReactLink>
+            <ReactLink to="/login" ml={1}>
+              <Text color={"lightblue"}>Log In</Text>
+            </ReactLink>
           </Flex>
         </Flex>
       </Flex>

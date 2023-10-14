@@ -81,8 +81,7 @@ function LoginForm() {
                 fill="#00E5CC"
               />
             </svg>
-          </Box>
-          
+          </Box>          
           <Image src={logo} w={"50%"} zIndex={4} pos={"absolute"} left={"50%"} top={"50%"} transform={"translate(-50%, -50%)"}/>
         </Box>
         <Flex
@@ -96,14 +95,24 @@ function LoginForm() {
           textAlign={"start"}
           className="login-container"
           zIndex={5}
+          position={"relative"}
         >
+          <ReactLink to={"/"}>
+            <Text pos={"absolute"}
+            top={5}
+            left={5}
+            color={"black"}
+            >
+              {"< Back"}
+            </Text>
+          </ReactLink>
           <Heading
             textAlign={"center"}
             fontSize={"1.7rem"}
             color={"black"}
             fontWeight={500}
           >
-            Create your Account
+            Log In
           </Heading>
           {/* <div className="input-container">
             <Text className="loginLabel">Full Name</Text>
