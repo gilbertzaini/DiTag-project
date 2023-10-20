@@ -14,10 +14,10 @@ module.exports = {
         unique: true
       },
       latitude: {
-        type: Sequelize.STRING
+        type: Sequelize.DOUBLE
       },
       longitude: {
-        type: Sequelize.STRING
+        type: Sequelize.DOUBLE
       },
       createdAt: {
         allowNull: false,

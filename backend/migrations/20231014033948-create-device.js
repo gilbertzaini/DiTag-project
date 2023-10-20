@@ -23,7 +23,7 @@ module.exports = {
       },
       battery_percentage: {
         type: Sequelize.DOUBLE,
-        allowNull: false,
+        allowNull: true,
       },
       createdAt: {
         allowNull: false,

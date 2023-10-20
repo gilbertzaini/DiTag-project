@@ -16,6 +16,7 @@ import React from "react";
 import { Link as ReactLink } from "react-router-dom";
 import logo from "../Assets/logo.png";
 import logo_no_text from "../Assets/logo_no_text.png";
+import map_sample from "../Assets/map_sample.png";
 
 const HomePage = () => {
   return (
@@ -151,8 +152,8 @@ const HomePage = () => {
             <Image
               w={"100%"}
               objectFit={"contain"}
-              src={logo}
-              border={"2px solid #9090A7"}
+              src={map_sample}
+              border={"1px solid #9090A7"}
               borderRadius={"10px"}
               mt={4}
             />

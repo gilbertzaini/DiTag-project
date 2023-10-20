@@ -4,7 +4,7 @@
   font-family: Poppins;
   min-height: 100vh;
   max-width: 100vw;
-  overflow-x: hidden;
+  overflow: hidden;
 }
 
 .App-header {
@@ -38,4 +38,13 @@ p {
   height: 12px;
   border-radius: 50%;
   margin-right: 7px;
+}
+
+.noScroll {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.noScroll::-webkit-scrollbar {
+  display: none;
 }

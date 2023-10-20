@@ -15,8 +15,8 @@ module.exports = (sequelize, DataTypes) => {
   }
   Coordinate.init({
     device_id: DataTypes.STRING,
-    latitude: DataTypes.STRING,
-    longitude: DataTypes.STRING,
+    latitude: DataTypes.DOUBLE,
+    longitude: DataTypes.DOUBLE,
   }, {
     sequelize,
     modelName: 'Coordinate',

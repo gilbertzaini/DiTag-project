@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
     user_id: {type: DataTypes.STRING, allowNull:false},
     name: {type: DataTypes.STRING, allowNull:false},
     status: {type: DataTypes.STRING, defaultValue:"Up"},
-    battery_percentage: {type: DataTypes.DOUBLE, allowNull:false}
+    battery_percentage: {type: DataTypes.DOUBLE, allowNull:true}
   }, {
     sequelize,
     modelName: 'Device',

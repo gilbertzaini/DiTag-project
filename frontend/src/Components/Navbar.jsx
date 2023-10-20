@@ -23,9 +23,9 @@ const Navbar = () => {
         >
           <Image h={"5em"} src={logo} objectFit={"contain"} />
           <Spacer />
-          <Link>Home</Link>
+          <ReactLink to={"/"}>Home</ReactLink>
           <Link>Register DiTag</Link>
-          <Link>Monitoring</Link>
+          <ReactLink to={"/device/monitor"}>Monitoring</ReactLink>
           <Link>Review</Link>
           <Spacer />
           <Box>
