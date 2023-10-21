@@ -43,8 +43,14 @@ const Monitor = () => {
                 <Text color="black" fontSize={"1rem"} fontWeight={600}>
                   {device.name}
                 </Text>
-                <Text color="black" fontSize={"0.75rem"}>
+                {/* <Text color="black" fontSize={"0.75rem"}>
                   Multimedia Nusantara University
+                </Text> */}
+                <Text color="black" fontSize={"0.75rem"}>
+                  Latitude: {device.Coordinate.latitude}
+                </Text>
+                <Text color="black" fontSize={"0.75rem"}>
+                  Longitude: {device.Coordinate.longitude}
                 </Text>
                 <Text color="black" fontSize={"0.75rem"}>-now</Text>
               </Flex>

@@ -19,7 +19,12 @@ const registerDevice = async (req, res) => {
 
 const getDevice = async (req, res) => {
   try {
-    const response = await Device.findAll();
+    const response = await Device.findAll({
+      include: [{
+        model: Coordinate,
+        as: 'Coordinate'
+      }],
+    });
     res.status(211).json(response);
   } catch (e) {
     console.log(e.message);

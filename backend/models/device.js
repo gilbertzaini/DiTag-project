@@ -10,7 +10,16 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      Device.hasOne(models.Coordinate, {
+        foreignKey: 'device_id',
+        sourceKey: 'device_id',
+        as: 'Coordinate'
+      });
+
+      Device.belongsTo(models.User, {
+        foreignKey:'user_id',
+        as: 'User'
+      });
     }
   }
   Device.init({
