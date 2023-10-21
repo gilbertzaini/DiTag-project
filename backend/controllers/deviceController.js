@@ -1,5 +1,4 @@
-const { Device } = require("../models");
-const { Coordinate } = require("../models");
+const { Device, Coordinate, User } = require("../models");
 
 const registerDevice = async (req, res) => {
   try {
@@ -22,8 +21,13 @@ const getDevice = async (req, res) => {
     const response = await Device.findAll({
       include: [{
         model: Coordinate,
-        as: 'Coordinate'
-      }],
+        as: 'Coordinate',
+      },
+      {
+        model: User,
+        as: 'User'
+      }
+    ],
     });
     res.status(211).json(response);
   } catch (e) {

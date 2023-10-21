@@ -41,7 +41,7 @@ const Monitor = () => {
             <Flex my={3}>
               <Flex textAlign={"start"} direction={"column"} fontWeight={500}>
                 <Text color="black" fontSize={"1rem"} fontWeight={600}>
-                  {device.name}
+                  {device.User.name} - {device.name}
                 </Text>
                 {/* <Text color="black" fontSize={"0.75rem"}>
                   Multimedia Nusantara University
