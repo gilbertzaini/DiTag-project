@@ -3,6 +3,7 @@ const { Coordinate } = require("../models");
 
 const registerDevice = async (req, res) => {
   try {
+    console.log(req.body);
     const newDevice = await Device.create(req.body);
     const { device_id } = req.body;
     await Coordinate.create({

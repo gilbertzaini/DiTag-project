@@ -1,5 +1,5 @@
 // LoginForm.js
-import { Text, Flex, Box, Heading, Image } from "@chakra-ui/react";
+import { Text, Flex, Box, Heading, Image, Button } from "@chakra-ui/react";
 import React, { useState } from "react";
 import {Link as ReactLink} from "react-router-dom";
 import "../form.css";
@@ -141,9 +141,9 @@ function LoginForm() {
               onChange={handlePasswordChange}
             />
           </div>
-          <button className="login-button" onClick={handleLogin}>
+          <Button className="login-button" onClick={handleLogin} w={"20%"}>
             Log In
-          </button>
+          </Button>
           <Flex mt={2} w={"60%"} fontSize={"1.2rem"} justifyContent={"start"} alignItems={"center"}>
             <Text>Don't have an account?</Text>
             <ReactLink to={"/register"} ml={1}><Text color={"lightblue"}>Register</Text></ReactLink>

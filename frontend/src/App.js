@@ -14,9 +14,6 @@ function App() {
       <BrowserRouter>
         <div className="App">
           <Routes>
-            {/* <div className="App-header"> */}
-            {/* <Test /> */}
-            {/* </div> */}
             <Route index element={<Index />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />

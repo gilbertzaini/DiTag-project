@@ -1,8 +1,20 @@
 import { Box, Flex, Heading, Image, Text } from "@chakra-ui/react";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import map_sample from "../Assets/map_sample.png";
+import axios from "axios";
 
 const Monitor = () => {
+  const [devices, setDevices] = useState([]);
+
+  useEffect(() => {
+    getDevices();
+  }, []);
+
+  const getDevices = async () => {
+    const response = await axios.get("http://localhost:8080/device");
+    setDevices(response.data);
+  };
+ 
   return (
     <Box position={"relative"} pt={"8rem"} px={"5%"} maxH={"100vh"} maxW={"100vw"} overflow={"hidden"}>
       {/* <Image src={logo} w={"13rem"} position={"absolute"} top={1} left={5} /> */}
@@ -25,10 +37,11 @@ const Monitor = () => {
             </Text>
           </Box>
           <Flex direction={"column"} mx={3} h={"55vh"} overflowY={"scroll"} className="noScroll">
+            {devices.map((device) => (
             <Flex my={3}>
               <Flex textAlign={"start"} direction={"column"} fontWeight={500}>
                 <Text color="black" fontSize={"1rem"} fontWeight={600}>
-                  Dompet
+                  {device.name}
                 </Text>
                 <Text color="black" fontSize={"0.75rem"}>
                   Multimedia Nusantara University
@@ -39,76 +52,7 @@ const Monitor = () => {
                 0km
               </Text>
             </Flex>
-            <Flex my={3}>
-              <Flex textAlign={"start"} direction={"column"} fontWeight={500}>
-                <Text color="black" fontSize={"1rem"} fontWeight={600}>
-                  Dompet
-                </Text>
-                <Text color="black" fontSize={"0.75rem"}>
-                  Multimedia Nusantara University
-                </Text>
-                <Text color="black" fontSize={"0.75rem"}>-now</Text>
-              </Flex>
-              <Text color="black" fontSize={"0.8rem"} textAlign={"end"} mt={"2px"}>
-                0km
-              </Text>
-            </Flex>
-            <Flex my={3}>
-              <Flex textAlign={"start"} direction={"column"} fontWeight={500}>
-                <Text color="black" fontSize={"1rem"} fontWeight={600}>
-                  Dompet
-                </Text>
-                <Text color="black" fontSize={"0.75rem"}>
-                  Multimedia Nusantara University
-                </Text>
-                <Text color="black" fontSize={"0.75rem"}>-now</Text>
-              </Flex>
-              <Text color="black" fontSize={"0.8rem"} textAlign={"end"} mt={"2px"}>
-                0km
-              </Text>
-            </Flex>
-            <Flex my={3}>
-              <Flex textAlign={"start"} direction={"column"} fontWeight={500}>
-                <Text color="black" fontSize={"1rem"} fontWeight={600}>
-                  Dompet
-                </Text>
-                <Text color="black" fontSize={"0.75rem"}>
-                  Multimedia Nusantara University
-                </Text>
-                <Text color="black" fontSize={"0.75rem"}>-now</Text>
-              </Flex>
-              <Text color="black" fontSize={"0.8rem"} textAlign={"end"} mt={"2px"}>
-                0km
-              </Text>
-            </Flex>
-            <Flex my={3}>
-              <Flex textAlign={"start"} direction={"column"} fontWeight={500}>
-                <Text color="black" fontSize={"1rem"} fontWeight={600}>
-                  Dompet
-                </Text>
-                <Text color="black" fontSize={"0.75rem"}>
-                  Multimedia Nusantara University
-                </Text>
-                <Text color="black" fontSize={"0.75rem"}>-now</Text>
-              </Flex>
-              <Text color="black" fontSize={"0.8rem"} textAlign={"end"} mt={"2px"}>
-                0km
-              </Text>
-            </Flex>
-            <Flex my={3}>
-              <Flex textAlign={"start"} direction={"column"} fontWeight={500}>
-                <Text color="black" fontSize={"1rem"} fontWeight={600}>
-                  Dompet
-                </Text>
-                <Text color="black" fontSize={"0.75rem"}>
-                  Multimedia Nusantara University
-                </Text>
-                <Text color="black" fontSize={"0.75rem"}>-now</Text>
-              </Flex>
-              <Text color="black" fontSize={"0.8rem"} textAlign={"end"} mt={"2px"}>
-                0km
-              </Text>
-            </Flex>
+            ))}
           </Flex>
         </Flex>
         <Box id="map" w={"70%"} mx={"auto"} border={"1px solid grey"} borderRadius={"12px"}>

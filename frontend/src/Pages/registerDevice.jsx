@@ -1,12 +1,14 @@
-import React from 'react';
-import DeviceForm from '../Components/DeviceForm';
+import React from "react";
+import DeviceForm from "../Components/DeviceForm";
+import Navbar from "../Components/Navbar";
 
 const RegisterDevice = () => {
   return (
     <>
-        <DeviceForm/>
+      <Navbar />
+      <DeviceForm />
     </>
-    )
-}
+  );
+};
 
 export default RegisterDevice;

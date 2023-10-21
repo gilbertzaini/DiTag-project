@@ -5,6 +5,12 @@
   min-height: 100vh;
   max-width: 100vw;
   overflow: hidden;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.App::-webkit-scrollbar {
+  display: none;
 }
 
 .App-header {
@@ -20,7 +26,7 @@
 
 p {
   font-size: 0.9rem;
-  color: #9090A7;
+  color: #9090a7;
 }
 
 #navbar {

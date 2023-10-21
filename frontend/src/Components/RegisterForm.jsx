@@ -1,5 +1,5 @@
 // LoginForm.js
-import { Text, Flex, Box, Heading, Image } from "@chakra-ui/react";
+import { Text, Flex, Box, Heading, Image, Button } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { Link as ReactLink, useNavigate } from "react-router-dom";
 import "../form.css";
@@ -169,9 +169,11 @@ function RegisterForm() {
                 required
               />
             </div>
-            <button type="submit" className="login-button">
-              Create Account
-            </button>
+            <Flex justify={"center"} align={"center"}>
+              <Button type="submit" className="login-button">
+                Create Account
+              </Button>
+            </Flex>
           </form>
           <Flex
             mt={2}
