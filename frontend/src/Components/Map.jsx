@@ -6,7 +6,8 @@ import "leaflet/dist/leaflet.css";
 import "../map.css";
 import userMarker from "../Assets/userMarker.png";
 import deviceMarker from "../Assets/deviceMarker.png";
-import { Text } from "@chakra-ui/react";
+import loading from "../Assets/loading.gif";
+import { Flex, Heading, Image, Text } from "@chakra-ui/react";
 
 const Map = (props) => {
   const [userLatitude, setUserLatitude] = useState(null);
@@ -35,7 +36,7 @@ const Map = (props) => {
     const interval = setInterval(getUserLocation, 5000);
 
     return () => clearInterval(interval);
-  }, []); 
+  }, []);
 
   const deviceIcon = new Icon({
     iconUrl: deviceMarker,
@@ -75,11 +76,11 @@ const Map = (props) => {
   return (userLatitude && userLongitude) ||
     (props.deviceLatitude && props.deviceLongitude) ? (
     <MapContainer
-        center={
-          props.deviceLatitude && props.deviceLongitude
-            ? [props.deviceLatitude, props.deviceLongitude]
-            : [userLatitude, userLongitude]
-        }
+      center={
+        props.deviceLatitude && props.deviceLongitude
+          ? [props.deviceLatitude, props.deviceLongitude]
+          : [userLatitude, userLongitude]
+      }
       zoom={15}
     >
       <TileLayer
@@ -107,7 +108,11 @@ const Map = (props) => {
         </Popup>
       </Marker>
     </MapContainer>
-  ) : null;
+  ) : (
+    <Flex justify={"center"} align={"center"} h={"100%"} w={"100%"}>
+      <Image my={"auto"} mx={"auto"} src={loading} h={"5rem"} w={"auto"} />
+    </Flex>
+  );
 };
 
 export default Map;

@@ -3,12 +3,14 @@ import React, { useEffect, useState } from "react";
 import map_sample from "../Assets/map_sample.png";
 import axios from "axios";
 import Map from "./Map";
+import { transform } from "framer-motion";
 
 const Monitor = () => {
   const [devices, setDevices] = useState([]);
   const [deviceLatitude, setDeviceLatitude] = useState(null);
   const [deviceLongitude, setDeviceLongitude] = useState(null);
   const [deviceName, setDeviceName] = useState("");
+  const [deviceId, setDeviceId] = useState("");
 
   useEffect(() => {
     getDevices();
@@ -23,10 +25,14 @@ const Monitor = () => {
     console.log(deviceLatitude, deviceLongitude);
   }, [deviceLatitude, deviceLongitude]);
 
+  useEffect(() => {
+    console.log(deviceId);
+  }, [deviceId]);
+
   return (
     <Box
       position={"relative"}
-      pt={"8rem"}
+      pt={"9rem"}
       px={"5%"}
       maxH={"100vh"}
       maxW={"100vw"}
@@ -37,7 +43,7 @@ const Monitor = () => {
         Find your DiTag Location
       </Heading>
       <Text color={"#9090A7"} fontSize={"1rem"} mt={4}>
-        Monitoring lokasi keberaaan DiTag
+        Monitoring lokasi keberadaan DiTag
       </Text>
       <Flex mt={3} h={"60vh"}>
         <Flex
@@ -60,20 +66,28 @@ const Monitor = () => {
           </Box>
           <Flex
             direction={"column"}
-            mx={3}
+            mx={2}
+            px={deviceId === "" ? 0 : 2}
+            py={deviceId === "" ? 0 : 2}
             h={"55vh"}
             overflowY={"scroll"}
             className="noScroll"
           >
             {devices.map((device) => (
-              <Flex
-                bg={"transparent"}
+              <Button
+                // bg={"transparent"}
+                bg={deviceId === device.device_id ? "white" : "transparent"}
                 onClick={() => {
                   setDeviceLatitude(device.Coordinate.latitude);
                   setDeviceLongitude(device.Coordinate.longitude);
                   setDeviceName(device.name);
+                  setDeviceId(device.device_id);
                 }}
-                my={3}
+                my={1}
+                h={"fit-content"}
+                p={3}
+                borderRadius={"12px"}
+                transform={deviceId === device.device_id ? "scale(1.1)" : ""}
               >
                 <Flex textAlign={"start"} direction={"column"} fontWeight={500}>
                   <Text color="black" fontSize={"1rem"} fontWeight={600}>
@@ -100,7 +114,7 @@ const Monitor = () => {
                 >
                   0km
                 </Text> */}
-              </Flex>
+              </Button>
             ))}
           </Flex>
         </Flex>
