@@ -21,6 +21,12 @@ module.exports = (sequelize, DataTypes) => {
         sourceKey: 'user_id',
         as: 'Notification'
       });
+
+      User.hasOne(models.Review, {
+        foreignKey: 'user_id',
+        sourceKey: 'user_id',
+        as: 'Review'
+      });
     }
   }
   User.init({
