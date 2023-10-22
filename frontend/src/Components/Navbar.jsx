@@ -26,7 +26,7 @@ const Navbar = () => {
           <ReactLink to={"/"}>Home</ReactLink>
           <ReactLink to={"/device/register"}>Register DiTag</ReactLink>
           <ReactLink to={"/device/monitor"}>Monitoring</ReactLink>
-          <Link>Review</Link>
+          <ReactLink to={"/reviews"}>Reviews</ReactLink>
           <Spacer />
           <Box>
             <ReactLink to="/login" color={"#000000"}>

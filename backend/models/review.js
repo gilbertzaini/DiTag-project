@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   Review.init(
     {
-      user_id: { type: DataTypes.STRING, allowNull: false },
+      user_id: { type: DataTypes.STRING, allowNull: false, unique: true },
       message: { type: DataTypes.STRING, allowNull: false },
       rate: { type: DataTypes.DOUBLE, allowNull: false },
     },

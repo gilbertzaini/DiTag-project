@@ -11,7 +11,8 @@ module.exports = {
       },
       user_id: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: false,
+        unique: true
       },
       message: {
         type: Sequelize.STRING,

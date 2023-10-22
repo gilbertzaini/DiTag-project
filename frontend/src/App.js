@@ -7,6 +7,7 @@ import Login from "./Pages/login";
 import Register from "./Pages/register";
 import RegisterDevice from "./Pages/registerDevice";
 import Monitoring from "./Pages/monitoring";
+import Reviews from "./Pages/reviews";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/device/register" element={<RegisterDevice/>} />
             <Route path="/device/monitor" element={<Monitoring />} />
+            <Route path="/reviews" element={<Reviews />} />
           </Routes>
         </div>
       </BrowserRouter>
