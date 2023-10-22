@@ -68,7 +68,7 @@ const DeviceForm = () => {
           {/* <FormLabel className="loginLabel">Device Name</FormLabel> */}
           <Input
             name="name"
-            placeholder="Name"
+            placeholder="Device Name"
             value={name}
             onChange={handleNameChange}
           />
