@@ -35,7 +35,7 @@ const Map = (props) => {
     const interval = setInterval(getUserLocation, 5000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, []); 
 
   const deviceIcon = new Icon({
     iconUrl: deviceMarker,
@@ -75,11 +75,11 @@ const Map = (props) => {
   return (userLatitude && userLongitude) ||
     (props.deviceLatitude && props.deviceLongitude) ? (
     <MapContainer
-      center={
-        props.deviceLatitude && props.deviceLongitude
-          ? [props.deviceLatitude, props.deviceLongitude]
-          : [userLatitude, userLongitude]
-      }
+        center={
+          props.deviceLatitude && props.deviceLongitude
+            ? [props.deviceLatitude, props.deviceLongitude]
+            : [userLatitude, userLongitude]
+        }
       zoom={15}
     >
       <TileLayer
