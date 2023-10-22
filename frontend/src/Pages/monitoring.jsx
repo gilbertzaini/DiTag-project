@@ -5,7 +5,7 @@ import Navbar from "../Components/Navbar";
 const Monitoring = () => {
   return (
     <div>
-        <Navbar/>
+      <Navbar />
       <Monitor />
     </div>
   );

@@ -1,10 +1,14 @@
-import { Box, Flex, Heading, Image, Text } from "@chakra-ui/react";
+import { Box, Button, Flex, Heading, Image, Text } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import map_sample from "../Assets/map_sample.png";
 import axios from "axios";
+import Map from "./Map";
 
 const Monitor = () => {
   const [devices, setDevices] = useState([]);
+  const [deviceLatitude, setDeviceLatitude] = useState(null);
+  const [deviceLongitude, setDeviceLongitude] = useState(null);
+  const [deviceName, setDeviceName] = useState("");
 
   useEffect(() => {
     getDevices();
@@ -14,9 +18,20 @@ const Monitor = () => {
     const response = await axios.get("http://localhost:8080/device");
     setDevices(response.data);
   };
- 
+
+  useEffect(() => {
+    console.log(deviceLatitude, deviceLongitude);
+  }, [deviceLatitude, deviceLongitude]);
+
   return (
-    <Box position={"relative"} pt={"8rem"} px={"5%"} maxH={"100vh"} maxW={"100vw"} overflow={"hidden"}>
+    <Box
+      position={"relative"}
+      pt={"8rem"}
+      px={"5%"}
+      maxH={"100vh"}
+      maxW={"100vw"}
+      overflow={"hidden"}
+    >
       {/* <Image src={logo} w={"13rem"} position={"absolute"} top={1} left={5} /> */}
       <Heading fontSize={"3rem"} fontWeight={400} color={"#060640"}>
         Find your DiTag Location
@@ -25,7 +40,14 @@ const Monitor = () => {
         Monitoring lokasi keberaaan DiTag
       </Text>
       <Flex mt={3} h={"60vh"}>
-        <Flex direction={"column"} borderRadius={"12px"} overflow={"hidden"} minW={"12%"} maxW={"12%"} border={"2px solid grey"}>
+        <Flex
+          direction={"column"}
+          borderRadius={"12px"}
+          overflow={"hidden"}
+          minW={"12%"}
+          maxW={"20%"}
+          border={"2px solid grey"}
+        >
           <Box bg={"#7d89ff"} py={1} px={3}>
             <Text
               color={"black"}
@@ -36,33 +58,60 @@ const Monitor = () => {
               Devices
             </Text>
           </Box>
-          <Flex direction={"column"} mx={3} h={"55vh"} overflowY={"scroll"} className="noScroll">
+          <Flex
+            direction={"column"}
+            mx={3}
+            h={"55vh"}
+            overflowY={"scroll"}
+            className="noScroll"
+          >
             {devices.map((device) => (
-            <Flex my={3}>
-              <Flex textAlign={"start"} direction={"column"} fontWeight={500}>
-                <Text color="black" fontSize={"1rem"} fontWeight={600}>
-                  {device.User.name} - {device.name}
-                </Text>
-                {/* <Text color="black" fontSize={"0.75rem"}>
+              <Flex
+                bg={"transparent"}
+                onClick={() => {
+                  setDeviceLatitude(device.Coordinate.latitude);
+                  setDeviceLongitude(device.Coordinate.longitude);
+                  setDeviceName(device.name);
+                }}
+                my={3}
+              >
+                <Flex textAlign={"start"} direction={"column"} fontWeight={500}>
+                  <Text color="black" fontSize={"1rem"} fontWeight={600}>
+                    {device.User.name} - {device.name}
+                  </Text>
+                  {/* <Text color="black" fontSize={"0.75rem"}>
                   Multimedia Nusantara University
                 </Text> */}
-                <Text color="black" fontSize={"0.75rem"}>
-                  Latitude: {device.Coordinate.latitude}
-                </Text>
-                <Text color="black" fontSize={"0.75rem"}>
-                  Longitude: {device.Coordinate.longitude}
-                </Text>
-                <Text color="black" fontSize={"0.75rem"}>-now</Text>
+                  <Text color="black" fontSize={"0.75rem"}>
+                    Latitude: {device.Coordinate.latitude}
+                  </Text>
+                  <Text color="black" fontSize={"0.75rem"}>
+                    Longitude: {device.Coordinate.longitude}
+                  </Text>
+                  <Text color="black" fontSize={"0.75rem"}>
+                    -now
+                  </Text>
+                </Flex>
+                {/* <Text
+                  color="black"
+                  fontSize={"0.8rem"}
+                  textAlign={"end"}
+                  mt={"2px"}
+                >
+                  0km
+                </Text> */}
               </Flex>
-              <Text color="black" fontSize={"0.8rem"} textAlign={"end"} mt={"2px"}>
-                0km
-              </Text>
-            </Flex>
             ))}
           </Flex>
         </Flex>
-        <Box id="map" w={"70%"} mx={"auto"} border={"1px solid grey"} borderRadius={"12px"}>
-            <Image src={map_sample} h={"100%"} w={"100%"} objectFit={"cover"} borderRadius={"12px"}/>
+        <Box
+          id="mapContainer"
+          w={"70%"}
+          mx={"auto"}
+          border={"1px solid grey"}
+          borderRadius={"12px"}
+        >
+          <Map deviceName={deviceName} deviceLatitude={deviceLatitude} deviceLongitude={deviceLongitude} />
         </Box>
       </Flex>
     </Box>
