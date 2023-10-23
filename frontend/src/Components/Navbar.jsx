@@ -37,6 +37,7 @@ const Navbar = () => {
               bg={"#060640"}
               color={"#FFFFFF"}
               fontWeight={"normal"}
+              _hover={{}}
             >
               Notifications
             </Button>

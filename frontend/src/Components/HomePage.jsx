@@ -55,6 +55,7 @@ const HomePage = () => {
                 color={"#FFFFFF"}
                 fontWeight={"normal"}
                 mr={5}
+                _hover={{}}
               >
                 Sign In
               </Button>

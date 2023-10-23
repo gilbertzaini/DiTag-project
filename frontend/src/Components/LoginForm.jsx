@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import {Link as ReactLink} from "react-router-dom";
 import "../form.css";
 import logo from "../Assets/logo.png";
+import axios from "axios";
 
 function LoginForm() {
   // const [name, setName] = useState("");
@@ -22,11 +23,23 @@ function LoginForm() {
     setPassword(e.target.value);
   };
 
-  const handleLogin = () => {
-    // You can add authentication logic here
-    // console.log("Name:", name);
-    console.log("Email:", email);
-    console.log("Password:", password);
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    try {
+      await axios.post("http://localhost:8080/login", {
+        email,
+        password,
+      });
+      // You can add logic to check for a successful login and redirect
+      // For example, if the server responds with a success status, you can navigate to a dashboard:
+      if (Response.status === 200) {
+        console.log("logged in");
+      }
+    } catch (error) {
+      // Handle login errors
+      console.log(error);
+    }
   };
 
   return (
@@ -123,6 +136,7 @@ function LoginForm() {
               onChange={handleNameChange}
             />
           </div> */}
+          <form onSubmit={handleLogin}>
           <div className="input-container">
             <Text className="loginLabel">Email</Text>
             <input
@@ -141,9 +155,10 @@ function LoginForm() {
               onChange={handlePasswordChange}
             />
           </div>
-          <Button className="login-button" onClick={handleLogin} w={"20%"}>
+          <Button className="login-button" type="submit" w={"20%"}>
             Log In
           </Button>
+          </form>
           <Flex mt={2} w={"60%"} fontSize={"1.2rem"} justifyContent={"start"} alignItems={"center"}>
             <Text>Don't have an account?</Text>
             <ReactLink to={"/register"} ml={1}><Text color={"lightblue"}>Register</Text></ReactLink>
