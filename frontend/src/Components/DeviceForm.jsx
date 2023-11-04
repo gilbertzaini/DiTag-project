@@ -7,12 +7,12 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 const DeviceForm = () => {
-  const [users, setUsers] = useState([]);
-  const [user_id, setUserId] = useState("");
+  // const [users, setUsers] = useState([]);
   const [name, setName] = useState("");
   const [device_id, setDeviceId] = useState("");
   const navigate = useNavigate();
   const {user} = useSelector((state) => state.auth);
+  const user_id = user.user_id;
 
   // const handleUserIdChange = (e) => {
   //   setUserId(e.target.value);
@@ -30,14 +30,14 @@ const DeviceForm = () => {
     setDeviceId(e.target.value);
   };
 
-  useEffect(() => {
-    getUsers();
-  }, []);
+  // useEffect(() => {
+  //   getUsers();
+  // }, []);
 
-  const getUsers = async () => {
-    const response = await axios.get("http://localhost:8080/users");
-    setUsers(response.data);
-  };
+  // const getUsers = async () => {
+  //   const response = await axios.get("http://localhost:8080/users");
+  //   setUsers(response.data);
+  // };
 
   const registerDevice = async (e) => {
     e.preventDefault();
