@@ -153,9 +153,16 @@ function LoginForm() {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
-            <Button className="login-button" type="submit" w={"20%"}>
-              {isLoading ? "Loading..." : "Log In"}
-            </Button>
+            <Flex justifyContent={"center"} mx={"auto"}>
+              <Button
+                className="login-button"
+                type="submit"
+                w={"20%"}
+                mx={"auto"}
+              >
+                {isLoading ? "Loading..." : "Log In"}
+              </Button>
+            </Flex>
           </form>
           <Flex
             mt={2}

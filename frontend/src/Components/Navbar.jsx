@@ -70,9 +70,14 @@ const Navbar = () => {
                 </Button>
               </>
             ) : (
-              <ReactLink to="/login" color={"#000000"}>
-                Sign In
-              </ReactLink>
+              <>
+                <ReactLink to="/login" color={"#000000"}>
+                  Sign In
+                </ReactLink>
+                <ReactLink to="/register" color={"#000000"}>
+                  Register
+                </ReactLink>
+              </>
             )}
           </Box>
         </Flex>
