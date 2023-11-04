@@ -33,7 +33,7 @@ const login = async (req, res) => {
         email: req.body.email,
       },
     });
-    if (!user) return res.status(400).json({ msg: "User not found" });
+    if (!user) return res.status(400).json({ msg: "Credential Error" });
     const match = await bcrypt.compare(req.body.password, user.password);
     if (!match) return res.status(400).json({ msg: "Credential Error" });
     req.session.userId = user.user_id;

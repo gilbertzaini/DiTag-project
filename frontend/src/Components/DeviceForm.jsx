@@ -7,37 +7,12 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 const DeviceForm = () => {
-  // const [users, setUsers] = useState([]);
+  const [user_id, setUserId] = useState("");
   const [name, setName] = useState("");
   const [device_id, setDeviceId] = useState("");
   const navigate = useNavigate();
   const {user} = useSelector((state) => state.auth);
-  const user_id = user.user_id;
-
-  // const handleUserIdChange = (e) => {
-  //   setUserId(e.target.value);
-  //   console.log(
-  //       "User Selected Value - ",
-  //       e.target.value
-  //   );
-  // };
-
-  const handleNameChange = (e) => {
-    setName(e.target.value);
-  };
-
-  const handleDeviceIdChange = (e) => {
-    setDeviceId(e.target.value);
-  };
-
-  // useEffect(() => {
-  //   getUsers();
-  // }, []);
-
-  // const getUsers = async () => {
-  //   const response = await axios.get("http://localhost:8080/users");
-  //   setUsers(response.data);
-  // };
+  if(user) setUserId(user.user_id);
 
   const registerDevice = async (e) => {
     e.preventDefault();
@@ -69,9 +44,7 @@ const DeviceForm = () => {
         <Box my={5} display={"none"}>
           <Input
             name="user_id"
-            placeholder={user.user_id}
-            value={user.name}
-            // onChange={handleNameChange}
+            value={user ? user.name : ""}
             readOnly
           />
         </Box>
@@ -81,7 +54,7 @@ const DeviceForm = () => {
             name="name"
             placeholder="Device Name"
             value={name}
-            onChange={handleNameChange}
+            onChange={(e) => setName(e.target.value)}
           />
         </Box>
         <Box my={5}>
@@ -90,7 +63,7 @@ const DeviceForm = () => {
             name="device_id"
             placeholder="Serial Number"
             value={device_id}
-            onChange={handleDeviceIdChange}
+            onChange={(e) => setDeviceId(e.target.value)}
           />
         </Box>
 

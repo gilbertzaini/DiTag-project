@@ -1,10 +1,8 @@
-// LoginForm.js
 import { Text, Flex, Box, Heading, Image, Button } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { Link as ReactLink, useNavigate } from "react-router-dom";
 import "../form.css";
 import logo from "../Assets/logo.png";
-import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { LoginUser, reset } from "../Features/authSlice";
 
@@ -116,6 +114,11 @@ function LoginForm() {
               {"< Back"}
             </Text>
           </ReactLink>
+          {/* {isError && (
+            <Text textAlign={"center"} py={5} color={"red"}>
+              {message}
+            </Text>
+          )} */}
           <Heading
             textAlign={"center"}
             fontSize={"1.7rem"}
@@ -124,17 +127,7 @@ function LoginForm() {
           >
             Log In
           </Heading>
-          {/* <div className="input-container">
-            <Text className="loginLabel">Full Name</Text>
-            <input
-              type="text"
-              placeholder="Enter your Full Name here"
-              value={name}
-              onChange={handleNameChange}
-            />
-          </div> */}
           <form onSubmit={handleLogin}>
-            {isError && <Text textAlign={"center"}>{message}</Text>}
             <div className="input-container">
               <Text className="loginLabel">Email</Text>
               <input

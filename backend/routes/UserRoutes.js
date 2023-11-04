@@ -4,7 +4,7 @@ const {verifyUser} = require("../middleware/AuthUser");
 
 const userRouter = express.Router();
 
-userRouter.get('/users', verifyUser, getUsers);
+userRouter.get('/users', getUsers);
 userRouter.patch('/users/:id', verifyUser, updateUser);
 userRouter.delete('/users/:id', verifyUser, deleteUser);
 

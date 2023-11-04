@@ -11,15 +11,19 @@ const Monitor = () => {
   const [deviceLongitude, setDeviceLongitude] = useState(null);
   const [deviceName, setDeviceName] = useState("");
   const [deviceId, setDeviceId] = useState("");
-  const {user} = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.auth);
 
   useEffect(() => {
     getDevices();
   }, []);
 
   const getDevices = async () => {
-    const response = await axios.get(`http://localhost:8080/device/${user.user_id}`);
-    setDevices(response.data);
+    if (user) {
+      const response = await axios.get(
+        `http://localhost:8080/device/${user.user_id}`
+      );
+      setDevices(response.data);
+    }
   };
 
   // useEffect(() => {
@@ -126,7 +130,11 @@ const Monitor = () => {
           border={"1px solid grey"}
           borderRadius={"12px"}
         >
-          <Map deviceName={deviceName} deviceLatitude={deviceLatitude} deviceLongitude={deviceLongitude} />
+          <Map
+            deviceName={deviceName}
+            deviceLatitude={deviceLatitude}
+            deviceLongitude={deviceLongitude}
+          />
         </Box>
       </Flex>
     </Box>

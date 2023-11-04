@@ -12,15 +12,28 @@ import {
 import { FaStar } from "react-icons/fa";
 import { LuQuote } from "react-icons/lu";
 import { AiOutlineSearch, AiFillPlayCircle } from "react-icons/ai";
-import React from "react";
+import { BsFillPersonFill } from "react-icons/bs";
+import React, { useEffect, useState } from "react";
 import { Link as ReactLink } from "react-router-dom";
+import axios from "axios";
 import logo from "../Assets/logo.png";
 import logo_no_text from "../Assets/logo_no_text.png";
 import map_sample from "../Assets/map_sample.png";
 import { useSelector } from "react-redux";
 
 const HomePage = () => {
+  const [users, setUsers] = useState([]);
   const { user } = useSelector((state) => state.auth);
+
+  const getUser = async () => {
+    const response = await axios.get("http://localhost:8080/users");
+    setUsers(response.data);
+    console.log(response.data);
+  };
+
+  useEffect(() => {
+    getUser();
+  }, []);
 
   return (
     <>
@@ -78,7 +91,6 @@ const HomePage = () => {
             px={5}
             rounded={"12px"}
             filter={"drop-shadow(0px 10px 30px rgba(6, 6, 64, 0.03))"}
-            
           >
             <Flex>
               <LuQuote size={32} fill="#00E5CC" color="#00E5CC" />
@@ -164,20 +176,20 @@ const HomePage = () => {
               borderRadius={"10px"}
               mt={4}
             />
-            {/* <Flex id="macFooter"
-            alignItems={"center"}
-            justifyContent={"center"}> */}
-            <AvatarGroup size="md" max={2} mt={3}>
-              <Avatar name="Ryan Florence" src="https://bit.ly/ryan-florence" />
-              <Avatar name="Segun Adebayo" src="https://bit.ly/sage-adebayo" />
-              <Avatar name="Kent Dodds" src="https://bit.ly/kent-c-dodds" />
-              <Avatar
-                name="Prosper Otemuyiwa"
-                src="https://bit.ly/prosper-baba"
-              />
-              <Avatar name="Christian Nwamba" src="https://bit.ly/code-beast" />
+            <AvatarGroup size="md" max={3} mt={3}>
+              {users.map((item, index) => (
+                <Avatar
+                  key={index}
+                  name={item.name}
+                  src={
+                    "https://img.icons8.com/pastel-glyph/64/person-male--v1.png"
+                  }
+                  bg="white"
+                  objectFit="contain"
+                  border={"1px solid lightgrey"}
+                />
+              ))}
             </AvatarGroup>
-            {/* </Flex> */}
           </Flex>
         </Flex>
       </Flex>
