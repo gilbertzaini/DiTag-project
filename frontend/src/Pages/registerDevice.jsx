@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import DeviceForm from "../Components/DeviceForm";
 import Navbar from "../Components/Navbar";
 import { useNavigate } from "react-router-dom";
