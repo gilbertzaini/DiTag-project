@@ -8,6 +8,7 @@ import Register from "./Pages/register";
 import RegisterDevice from "./Pages/registerDevice";
 import Monitoring from "./Pages/monitoring";
 import Reviews from "./Pages/reviews";
+import LoginTest from "./Components/LoginTest";
 
 function App() {
   return (
@@ -18,9 +19,10 @@ function App() {
             <Route index element={<Index />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/device/register" element={<RegisterDevice/>} />
+            <Route path="/device/register" element={<RegisterDevice />} />
             <Route path="/device/monitor" element={<Monitoring />} />
             <Route path="/reviews" element={<Reviews />} />
+            <Route path="/logintest" element={<LoginTest />} />
           </Routes>
         </div>
       </BrowserRouter>

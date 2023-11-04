@@ -4,6 +4,7 @@ import axios from "axios";
 import "../form.css";
 import logo from "../Assets/logo.png";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const DeviceForm = () => {
   const [users, setUsers] = useState([]);
@@ -11,14 +12,15 @@ const DeviceForm = () => {
   const [name, setName] = useState("");
   const [device_id, setDeviceId] = useState("");
   const navigate = useNavigate();
+  const {user} = useSelector((state) => state.auth);
 
-  const handleUserIdChange = (e) => {
-    setUserId(e.target.value);
-    console.log(
-        "User Selected Value - ",
-        e.target.value
-    );
-  };
+  // const handleUserIdChange = (e) => {
+  //   setUserId(e.target.value);
+  //   console.log(
+  //       "User Selected Value - ",
+  //       e.target.value
+  //   );
+  // };
 
   const handleNameChange = (e) => {
     setName(e.target.value);
@@ -56,13 +58,22 @@ const DeviceForm = () => {
     <Box mt={"15rem"} id="deviceRegisterForm">
       <Image src={logo} h={"7rem"} mx={"auto"} />
       <form onSubmit={registerDevice}>
-        <Box my={5}>
-          <Select name="user_id" value={user_id} onChange={handleUserIdChange}>
+        {/* <Box my={5}>
+          <Select name="user_id" value={user.user_id}>
             <option value={""}>User</option>
             {users.map((user) => (
               <option value={user.user_id}>{user.name}</option>
             ))}
           </Select>
+        </Box> */}
+        <Box my={5} display={"none"}>
+          <Input
+            name="user_id"
+            placeholder={user.user_id}
+            value={user.name}
+            // onChange={handleNameChange}
+            readOnly
+          />
         </Box>
         <Box my={5}>
           {/* <FormLabel className="loginLabel">Device Name</FormLabel> */}

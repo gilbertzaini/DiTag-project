@@ -17,8 +17,11 @@ import { Link as ReactLink } from "react-router-dom";
 import logo from "../Assets/logo.png";
 import logo_no_text from "../Assets/logo_no_text.png";
 import map_sample from "../Assets/map_sample.png";
+import { useSelector } from "react-redux";
 
 const HomePage = () => {
+  const { user } = useSelector((state) => state.auth);
+
   return (
     <>
       <Flex w={"85vw"} minH={"100vh"} mx={"auto"}>
@@ -46,33 +49,36 @@ const HomePage = () => {
             </Text>
           </Flex>
 
-          <Flex mt={3} id="signin">
-            <ReactLink to="/login">
-              <Button
-                h={"3.5em"}
-                w={"8rem"}
-                bg={"#060640"}
-                color={"#FFFFFF"}
-                fontWeight={"normal"}
-                mr={5}
-                _hover={{}}
-              >
-                Sign In
-              </Button>
-            </ReactLink>
-            <AiFillPlayCircle size={55} color="#00E5CC" />
-          </Flex>
+          <Box display={user ? "none" : "block"}>
+            <Flex mt={3} id="signin">
+              <ReactLink to="/login">
+                <Button
+                  h={"3.5em"}
+                  w={"8rem"}
+                  bg={"#060640"}
+                  color={"#FFFFFF"}
+                  fontWeight={"normal"}
+                  mr={5}
+                  _hover={{}}
+                >
+                  Sign In
+                </Button>
+              </ReactLink>
+              <AiFillPlayCircle size={55} color="#00E5CC" />
+            </Flex>
+          </Box>
 
           <Flex
             id="review"
             bg={"white"}
             direction="column"
-            mt={"5rem"}
+            mt={user ? "9.2rem" : "5rem"}
             w={"27rem"}
             py={5}
             px={5}
             rounded={"12px"}
             filter={"drop-shadow(0px 10px 30px rgba(6, 6, 64, 0.03))"}
+            
           >
             <Flex>
               <LuQuote size={32} fill="#00E5CC" color="#00E5CC" />

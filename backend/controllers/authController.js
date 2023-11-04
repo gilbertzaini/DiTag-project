@@ -40,6 +40,8 @@ const login = async (req, res) => {
     const user_id = user.user_id;
     const name = user.name;
     const email = user.email;
+    console.log(`Logged in as ${name}`);
+    console.log(`Session created with userId ${req.session.userId}`);
     res.status(200).json({ user_id, name, email });
   } catch (e) {
     console.log(e.message);

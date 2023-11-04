@@ -10,7 +10,11 @@ const notificationRouter = require("./routes/NotificationRoutes.js");
 const reviewRouter = require("./routes/ReviewRoutes.js");
 
 const app = express();
-app.use(cors());
+
+app.use(cors({
+  credentials: true,
+  origin: 'http://localhost:3000'
+}));
 
 app.use(
   session({

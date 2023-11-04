@@ -1,9 +1,21 @@
 import React from "react";
 import { Box, Button, Flex, Image, Link, Spacer } from "@chakra-ui/react";
 import logo from "../Assets/logo.png";
-import { Link as ReactLink } from "react-router-dom";
+import { Link as ReactLink, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { LogOut, reset } from "../Features/authSlice";
 
 const Navbar = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { user } = useSelector((state) => state.auth);
+
+  const logout = () => {
+    dispatch(LogOut());
+    dispatch(reset());
+    navigate("/");
+  };
+
   return (
     <>
       <Flex justifyContent={"center"}>
@@ -21,23 +33,42 @@ const Navbar = () => {
           zIndex={10}
           rounded={"10px"}
         >
-          <Image h={"5em"} src={logo} objectFit={"contain"} />
+          <ReactLink to={"/"}>
+            <Image h={"5em"} src={logo} objectFit={"contain"} />
+          </ReactLink>
           <Spacer />
-          <ReactLink to={"/"}>Home</ReactLink>
-          <ReactLink to={"/device/register"}>Register DiTag</ReactLink>
-          <ReactLink to={"/device/monitor"}>Monitoring</ReactLink>
-          <ReactLink to={"/reviews"}>Reviews</ReactLink>
+          {user ? (
+            <>
+              <ReactLink to="/device/register">Register DiTag</ReactLink>
+              <ReactLink to="/device/monitor">Monitoring</ReactLink>
+              <ReactLink to="/reviews">Reviews</ReactLink>
+            </>
+          ) : null}
           <Spacer />
           <Box>
-            <ReactLink to="/login" color={"#000000"}>
-              Sign In
-            </ReactLink>
+            {user ? (
+              <Button
+                onClick={logout}
+                mx={3}
+                bg={"transparent"}
+                _hover={"background: transparent"}
+                fontSize={"0.9rem"}
+                color={"#828297"}
+                fontWeight={"normal"}
+              >
+                Logout
+              </Button>
+            ) : (
+              <ReactLink to="/login" color={"#000000"}>
+                Sign In
+              </ReactLink>
+            )}
             <Button
               h={"3.5em"}
               bg={"#060640"}
               color={"#FFFFFF"}
               fontWeight={"normal"}
-              _hover={{}}
+              _hover={"transform: scale(1.1)"}
             >
               Notifications
             </Button>

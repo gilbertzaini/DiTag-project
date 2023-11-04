@@ -4,7 +4,7 @@ const {verifyUser} = require("../middleware/AuthUser");
 
 const deviceRouter = express.Router();
 
-deviceRouter.get('/device', verifyUser, getDevice);
+deviceRouter.get('/device/:user_id', verifyUser, getDevice);
 deviceRouter.post('/device/register', verifyUser, registerDevice);
 deviceRouter.patch('/device/update/:device_id', verifyUser, updateDevice);
 deviceRouter.delete('/device/delete/:device_id', verifyUser, deleteDevice);

@@ -1,43 +1,39 @@
 // LoginForm.js
 import { Text, Flex, Box, Heading, Image, Button } from "@chakra-ui/react";
-import React, { useState } from "react";
-import {Link as ReactLink} from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link as ReactLink, useNavigate } from "react-router-dom";
 import "../form.css";
 import logo from "../Assets/logo.png";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { LoginUser, reset } from "../Features/authSlice";
 
 function LoginForm() {
-  // const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { user, isError, isSuccess, isLoading, message } = useSelector(
+    (state) => state.auth
+  );
 
-  // const handleNameChange = (e) => {
-  //   setName(e.target.value);
-  // };
-
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-  };
-
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-  };
-
-  const handleLogin = async (e) => {
+  const handleLogin = (e) => {
     e.preventDefault();
 
     try {
-      await axios.post("http://localhost:8080/login", {
-        email,
-        password,
-      });
-      if (Response.status === 200) {
-        console.log("logged in");
-      }
+      dispatch(reset());
+      dispatch(LoginUser({ email, password }));
     } catch (error) {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    if (user || isSuccess) {
+      console.log(user.name);
+      navigate("/device/monitor");
+    }
+  }, [user, isSuccess, dispatch, navigate]);
 
   return (
     <>
@@ -91,8 +87,16 @@ function LoginForm() {
                 fill="#00E5CC"
               />
             </svg>
-          </Box>          
-          <Image src={logo} w={"50%"} zIndex={4} pos={"absolute"} left={"50%"} top={"50%"} transform={"translate(-50%, -50%)"}/>
+          </Box>
+          <Image
+            src={logo}
+            w={"50%"}
+            zIndex={4}
+            pos={"absolute"}
+            left={"50%"}
+            top={"50%"}
+            transform={"translate(-50%, -50%)"}
+          />
         </Box>
         <Flex
           bg={"#FCFEFF"}
@@ -108,11 +112,7 @@ function LoginForm() {
           position={"relative"}
         >
           <ReactLink to={"/"}>
-            <Text pos={"absolute"}
-            top={5}
-            left={5}
-            color={"black"}
-            >
+            <Text pos={"absolute"} top={5} left={5} color={"black"}>
               {"< Back"}
             </Text>
           </ReactLink>
@@ -134,31 +134,40 @@ function LoginForm() {
             />
           </div> */}
           <form onSubmit={handleLogin}>
-          <div className="input-container">
-            <Text className="loginLabel">Email</Text>
-            <input
-              type="text"
-              placeholder="Enter your Email here"
-              value={email}
-              onChange={handleEmailChange}
-            />
-          </div>
-          <div className="input-container">
-            <Text className="loginLabel">Password</Text>
-            <input
-              type="password"
-              placeholder="Enter your Password here"
-              value={password}
-              onChange={handlePasswordChange}
-            />
-          </div>
-          <Button className="login-button" type="submit" w={"20%"}>
-            Log In
-          </Button>
+            {isError && <Text textAlign={"center"}>{message}</Text>}
+            <div className="input-container">
+              <Text className="loginLabel">Email</Text>
+              <input
+                type="text"
+                placeholder="Enter your Email here"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
+            <div className="input-container">
+              <Text className="loginLabel">Password</Text>
+              <input
+                type="password"
+                placeholder="Enter your Password here"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+            <Button className="login-button" type="submit" w={"20%"}>
+              {isLoading ? "Loading..." : "Log In"}
+            </Button>
           </form>
-          <Flex mt={2} w={"60%"} fontSize={"1.2rem"} justifyContent={"start"} alignItems={"center"}>
+          <Flex
+            mt={2}
+            w={"60%"}
+            fontSize={"1.2rem"}
+            justifyContent={"start"}
+            alignItems={"center"}
+          >
             <Text>Don't have an account?</Text>
-            <ReactLink to={"/register"} ml={1}><Text color={"lightblue"}>Register</Text></ReactLink>
+            <ReactLink to={"/register"} ml={1}>
+              <Text color={"lightblue"}>Register</Text>
+            </ReactLink>
           </Flex>
         </Flex>
       </Flex>

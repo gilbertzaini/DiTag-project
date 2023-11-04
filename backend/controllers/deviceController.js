@@ -19,6 +19,9 @@ const registerDevice = async (req, res) => {
 const getDevice = async (req, res) => {
   try {
     const response = await Device.findAll({
+      where: {
+        user_id: req.params.user_id
+      },
       include: [{
         model: Coordinate,
         as: 'Coordinate',

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import map_sample from "../Assets/map_sample.png";
 import axios from "axios";
 import Map from "./Map";
-import { transform } from "framer-motion";
+import { useSelector } from "react-redux";
 
 const Monitor = () => {
   const [devices, setDevices] = useState([]);
@@ -11,23 +11,24 @@ const Monitor = () => {
   const [deviceLongitude, setDeviceLongitude] = useState(null);
   const [deviceName, setDeviceName] = useState("");
   const [deviceId, setDeviceId] = useState("");
+  const {user} = useSelector((state) => state.auth);
 
   useEffect(() => {
     getDevices();
   }, []);
 
   const getDevices = async () => {
-    const response = await axios.get("http://localhost:8080/device");
+    const response = await axios.get(`http://localhost:8080/device/${user.user_id}`);
     setDevices(response.data);
   };
 
-  useEffect(() => {
-    console.log(deviceLatitude, deviceLongitude);
-  }, [deviceLatitude, deviceLongitude]);
+  // useEffect(() => {
+  //   console.log(deviceLatitude, deviceLongitude);
+  // }, [deviceLatitude, deviceLongitude]);
 
-  useEffect(() => {
-    console.log(deviceId);
-  }, [deviceId]);
+  // useEffect(() => {
+  //   console.log(deviceId);
+  // }, [deviceId]);
 
   return (
     <Box
