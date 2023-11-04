@@ -1,6 +1,5 @@
 const express = require("express");
-const { register, login } = require("../controllers/authController");
-const { bcryptjs } = require("bcryptjs");
+const { register, login, loggedInUser, logout } = require("../controllers/authController");
 const {check, validationResult} = require("express-validator");
 
 const authRouter = express.Router();
@@ -13,5 +12,7 @@ const rules = [
 
 authRouter.post("/register", rules, register);
 authRouter.post("/login", login);
+authRouter.get("/logged-in-user", loggedInUser);
+authRouter.delete("/logout", logout);
 
 module.exports = authRouter;

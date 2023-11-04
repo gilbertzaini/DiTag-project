@@ -1,5 +1,7 @@
 const express = require("express");
 const cors = require("cors");
+const session = require("express-session");
+
 const authRouter = require("./routes/AuthRoutes.js");
 const userRouter = require("./routes/UserRoutes.js");
 const deviceRouter = require("./routes/DeviceRoutes.js");
@@ -9,6 +11,16 @@ const reviewRouter = require("./routes/ReviewRoutes.js");
 
 const app = express();
 app.use(cors());
+
+app.use(
+  session({
+    secret: 'ditag-solusi-kehilangan-barang', // Replace with a strong secret key
+    resave: false,
+    saveUninitialized: true
+  })
+);
+
+// Routes
 app.use(express.json());
 app.use(userRouter);
 app.use(authRouter);

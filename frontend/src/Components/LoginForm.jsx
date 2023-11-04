@@ -31,13 +31,10 @@ function LoginForm() {
         email,
         password,
       });
-      // You can add logic to check for a successful login and redirect
-      // For example, if the server responds with a success status, you can navigate to a dashboard:
       if (Response.status === 200) {
         console.log("logged in");
       }
     } catch (error) {
-      // Handle login errors
       console.log(error);
     }
   };

@@ -1,11 +1,12 @@
 const express = require("express");
 const {getDevice, registerDevice, updateDevice, deleteDevice} = require("../controllers/deviceController");
+const {verifyUser} = require("../middleware/AuthUser");
 
 const deviceRouter = express.Router();
 
-deviceRouter.get('/device', getDevice);
-deviceRouter.post('/device/register', registerDevice);
-deviceRouter.patch('/device/update/:device_id', updateDevice);
-deviceRouter.delete('/device/delete/:device_id', deleteDevice);
+deviceRouter.get('/device', verifyUser, getDevice);
+deviceRouter.post('/device/register', verifyUser, registerDevice);
+deviceRouter.patch('/device/update/:device_id', verifyUser, updateDevice);
+deviceRouter.delete('/device/delete/:device_id', verifyUser, deleteDevice);
 
 module.exports = deviceRouter;
