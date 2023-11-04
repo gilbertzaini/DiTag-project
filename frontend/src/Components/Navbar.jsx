@@ -47,31 +47,33 @@ const Navbar = () => {
           <Spacer />
           <Box>
             {user ? (
-              <Button
-                onClick={logout}
-                mx={3}
-                bg={"transparent"}
-                _hover={"background: transparent"}
-                fontSize={"0.9rem"}
-                color={"#828297"}
-                fontWeight={"normal"}
-              >
-                Logout
-              </Button>
+              <>
+                <Button
+                  onClick={logout}
+                  mx={3}
+                  bg={"transparent"}
+                  _hover={"background: transparent"}
+                  fontSize={"0.9rem"}
+                  color={"#828297"}
+                  fontWeight={"normal"}
+                >
+                  Logout
+                </Button>
+                <Button
+                  h={"3.5em"}
+                  bg={"#060640"}
+                  color={"#FFFFFF"}
+                  fontWeight={"normal"}
+                  _hover={"transform: scale(1.1)"}
+                >
+                  Notifications
+                </Button>
+              </>
             ) : (
               <ReactLink to="/login" color={"#000000"}>
                 Sign In
               </ReactLink>
             )}
-            <Button
-              h={"3.5em"}
-              bg={"#060640"}
-              color={"#FFFFFF"}
-              fontWeight={"normal"}
-              _hover={"transform: scale(1.1)"}
-            >
-              Notifications
-            </Button>
           </Box>
         </Flex>
       </Flex>
