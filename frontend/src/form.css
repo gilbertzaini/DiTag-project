@@ -1,84 +1,175 @@
-/* LoginPage.css */
-.login-container {
-  margin: 0 auto;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-top-left-radius: 20px;
-  border-bottom-left-radius: 20px;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-  text-align: center;
+/* styles for desktop devices */
+@media only screen and (min-width: 992px) {
+    /* LoginPage.css */
+  .login-container {
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    text-align: center;
+  }
+
+  .input-container {
+    margin-top: 15px;
+    margin-bottom: 10px;
+    justify-content: center;
+    margin: 25px 50px;
+  }
+
+  input {
+    /* width: 100%; */
+    width: 35vw;
+    padding-left: 5%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    border-radius: 20px;
+    background-color: #dee3e7;
+    height: 3.5rem;
+  }
+
+  input::placeholder {
+    color: #7c838a;
+  }
+
+  .login-button {
+    width: 40%;
+    padding: 20px !important;
+    background-color: #f9ed32 !important;
+    color: black !important;
+    border: none !important;
+    border-radius: 5px !important;
+    font-size: 18px !important;
+    cursor: pointer;
+  }
+
+  .login-button:hover {
+    background-color: #b30080;
+  }
+
+  .loginLabel {
+    color: #7c838a;
+    font-weight: 500;
+    font-size: 1.1rem;
+  }
+
+  #deviceRegisterForm form {
+    width: 20%;
+    margin: auto;
+    font-size: 1rem !important;
+    font-weight: bolder !important;
+  }
+
+  #deviceRegisterForm input {
+    background: #00e5cc;
+    color: white;
+    height: 3rem;
+  }
+
+  #deviceRegisterForm input::placeholder {
+    color: white;
+  }
+
+  #deviceRegisterForm select {
+    background: #00e5cc;
+    color: white;
+    height: 3rem;
+  }
+
+  #deviceRegisterForm button {
+    background: #059F8E;
+    color: white;
+    height: 3rem;
+    width: 100%;
+  }
+  
 }
 
-.input-container {
-  margin-top: 15px;
-  margin-bottom: 10px;
-  justify-content: center;
-  margin: 25px 50px;
-}
+/* styles for mobile devices */
+@media only screen and (max-width: 767px) {
+  .login-container {
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    text-align: center;
+  }
 
-input {
-  /* width: 100%; */
-  width: 35vw;
-  padding-left: 5%;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 16px;
-  border-radius: 20px;
-  background-color: #dee3e7;
-  height: 3.5rem;
-}
+  .input-container {
+    margin-top: 15px;
+    margin-bottom: 10px;
+    justify-content: center;
+    margin: 25px 50px;
+  }
 
-input::placeholder {
-  color: #7c838a;
-}
+  input {
+    /* width: 100%; */
+    width: 50vw;
+    padding-left: 5%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    border-radius: 20px;
+    background-color: #dee3e7;
+    height: 3.5rem;
+  }
 
-.login-button {
-  width: 40%;
-  padding: 20px !important;
-  background-color: #f9ed32 !important;
-  color: black !important;
-  border: none !important;
-  border-radius: 5px !important;
-  font-size: 18px !important;
-  cursor: pointer;
-}
+  input::placeholder {
+    color: #7c838a;
+  }
 
-.login-button:hover {
-  background-color: #b30080;
-}
+  .login-button {
+    width: 60%;
+    padding: 20px !important;
+    background-color: #f9ed32 !important;
+    color: black !important;
+    border: none !important;
+    border-radius: 5px !important;
+    font-size: 18px !important;
+    cursor: pointer;
+  }
 
-.loginLabel {
-  color: #7c838a;
-  font-weight: 500;
-  font-size: 1.1rem;
-}
+  .login-button:hover {
+    background-color: #b30080;
+  }
 
-#deviceRegisterForm form {
-  width: 20%;
-  margin: auto;
-  font-size: 1rem !important;
-  font-weight: bolder !important;
-}
+  .loginLabel {
+    color: #7c838a;
+    font-weight: 500;
+    font-size: 1.1rem;
+  }
 
-#deviceRegisterForm input {
-  background: #00e5cc;
-  color: white;
-  height: 3rem;
-}
+  #deviceRegisterForm form {
+    width: 20%;
+    margin: auto;
+    font-size: 1rem !important;
+    font-weight: bolder !important;
+  }
 
-#deviceRegisterForm input::placeholder {
-  color: white;
-}
+  #deviceRegisterForm input {
+    background: #00e5cc;
+    color: white;
+    height: 3rem;
+  }
 
-#deviceRegisterForm select {
-  background: #00e5cc;
-  color: white;
-  height: 3rem;
-}
+  #deviceRegisterForm input::placeholder {
+    color: white;
+  }
 
-#deviceRegisterForm button {
-  background: #059F8E;
-  color: white;
-  height: 3rem;
-  width: 100%;
+  #deviceRegisterForm select {
+    background: #00e5cc;
+    color: white;
+    height: 3rem;
+  }
+
+  #deviceRegisterForm button {
+    background: #059F8E;
+    color: white;
+    height: 3rem;
+    width: 100%;
+  }
 }
