@@ -11,7 +11,7 @@ const About = () => {
           <Heading color={"#060640"} font-size={"3rem"} fontWeight={400}>
             About DiTag
           </Heading>
-          <Text my={5} w={"50%"}>
+          <Text my={5} w={"70%"}>
             DiTag adalah produk yang dapat membantu mahasiswa yang sering lupa
             atau ceroboh untuk mengatasi masalah mereka dalam manajemen
             barang-barang pribadi
