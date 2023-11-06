@@ -36,7 +36,7 @@ function LoginForm() {
   return (
     <>
       <Flex minH={"100vh"} w={"100vw"} bg={"#f3dadf"} overflow={"hidden"}>
-        <Hide below="md">
+        <Hide below="sm">
           <Box w={"40vw"} h={"100vh"} position={"relative"}>
             <Box position={"absolute"} zIndex={1} top={20} left={10}>
               <svg
@@ -152,7 +152,7 @@ function LoginForm() {
               <Button
                 className="login-button"
                 type="submit"
-                w={"20%"}
+                w={"auto"}
                 mx={"auto"}
               >
                 {isLoading ? "Loading..." : "Log In"}
