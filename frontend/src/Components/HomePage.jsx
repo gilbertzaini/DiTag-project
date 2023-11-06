@@ -37,33 +37,45 @@ const HomePage = () => {
 
   return (
     <>
-      <Flex w={"85vw"} minH={"100vh"} mx={"auto"}>
+      <Flex
+        w={"85vw"}
+        mt={{ base: "28vh", xl: 0 }}
+        minH={"100vh"}
+        mx={"auto"}
+        direction={{ base: "column", xl: "row" }}
+      >
         <Flex
           id="kiri"
           direction={"column"}
           justifyContent={"center"}
           alignItems={"start"}
           textAlign={"start"}
-          px={5}
+          px={{ base: 0, xl: 5 }}
           pt={"6%"}
         >
           <Flex direction={"column"} id="typography">
-            <Heading fontWeight={"extrabold"} fontSize={"3rem"}>
-              Hilangkan
-              <br />
-              Kebiasaan
-              <br />
-              Kehilangan Barang
+            <Heading
+              fontWeight={"extrabold"}
+              textAlign={{ base: "center", xl: "start" }}
+              fontSize={{ base: "2rem", xl: "3rem" }}
+            >
+              Hilangkan Kebiasaan Kehilangan Barang
             </Heading>
-            <Text my={5}>
-              DITAG merupakan produk yang membantu anda
-              <br />
-              agar barang berharga anda dapat terjaga
+            <Text my={5} textAlign={{ base: "center", xl: "start" }}>
+              DITAG merupakan produk yang membantu anda agar barang berharga
+              anda dapat terjaga
             </Text>
           </Flex>
 
-          <Box display={user ? "none" : "block"}>
-            <Flex mt={3} id="signin">
+          <Flex
+            mt={3}
+            w={"100%"}
+            justifyContent={"center"}
+            align={"center"}
+            id="signin"
+            display={user ? "none" : "block"}
+          >
+            <Flex justifyContent={{ base: "center", xl: "start" }}>
               <ReactLink to="/login">
                 <Button
                   h={"3.5em"}
@@ -77,32 +89,42 @@ const HomePage = () => {
                   Sign In
                 </Button>
               </ReactLink>
-              <AiFillPlayCircle size={55} color="#00E5CC" />
+              <Box display={{ base: "none", xl: "block" }}>
+                <AiFillPlayCircle size={55} color="#00E5CC" />
+              </Box>
             </Flex>
-          </Box>
+          </Flex>
 
           <Flex
             id="review"
             bg={"white"}
             direction="column"
             mt={user ? "9.2rem" : "5rem"}
-            w={"27rem"}
+            w={{ base: "100%", xl: "100%" }}
             py={5}
             px={5}
             rounded={"12px"}
             filter={"drop-shadow(0px 10px 30px rgba(6, 6, 64, 0.03))"}
           >
             <Flex>
-              <LuQuote size={32} fill="#00E5CC" color="#00E5CC" />
+              <Box w={{ base: "25px", xl: "35px" }}>
+                <LuQuote size={"100%"} fill="#00E5CC" color="#00E5CC" />
+              </Box>
               <Spacer />
-              <Flex alignItems={"end"} pb={1}>
-                <FaStar size={20} color="#FFBF00" />
-                <Text fontSize={"0.7em"} ml={1}>
+              <Flex alignItems={"center"} pb={1}>
+                <Box w={{base: "15px", xl: "18px"}}>
+                  <FaStar size={"100%"} color="#FFBF00" />
+                </Box>
+                <Text fontSize={"0.7rem"} mt={"2px"} ml={1}>
                   4.9
                 </Text>
               </Flex>
             </Flex>
-            <Text mt={5}>
+            <Text
+              mt={5}
+              fontSize={{ base: "0.7rem", xl: "1rem" }}
+              wordBreak={"break-word"}
+            >
               DITAG sangat membantu saya, sekarang tidak pernah kehilangan
               barang lagi <strong>-Nando Punca</strong>
             </Text>
@@ -117,6 +139,7 @@ const HomePage = () => {
           ml={"10%"}
         >
           <Flex
+            display={{ base: "none", xl: "block" }}
             id="wrapper"
             bg={"white"}
             w={"45vw"}
