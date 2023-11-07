@@ -1,5 +1,6 @@
 import { Box, Button, Flex, Heading, Image, Text } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
+import loadingGif from "../Assets/loading.gif";
 import map_sample from "../Assets/map_sample.png";
 import axios from "axios";
 import Map from "./Map";
@@ -11,20 +12,27 @@ const Monitor = () => {
   const [deviceLongitude, setDeviceLongitude] = useState(null);
   const [deviceName, setDeviceName] = useState("");
   const [deviceId, setDeviceId] = useState("");
+  const [loading, setLoading] = useState(true);
   const { user } = useSelector((state) => state.auth);
+
+  const getDevices = async () => {
+    if (user) {
+      try {
+        const response = await axios.get(
+          `http://localhost:8080/device/${user.user_id}`
+        );
+        setDevices(response.data);
+        console.log(response.data);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching devices:", error);
+      }
+    }
+  };
 
   useEffect(() => {
     getDevices();
   }, []);
-
-  const getDevices = async () => {
-    if (user) {
-      const response = await axios.get(
-        `http://localhost:8080/device/${user.user_id}`
-      );
-      setDevices(response.data);
-    }
-  };
 
   // useEffect(() => {
   //   console.log(deviceLatitude, deviceLongitude);
@@ -55,8 +63,7 @@ const Monitor = () => {
           direction={"column"}
           borderRadius={"12px"}
           overflow={"hidden"}
-          minW={"12%"}
-          maxW={"20%"}
+          w={"15%"}
           border={"2px solid grey"}
         >
           <Box bg={"#7d89ff"} py={1} px={3}>
@@ -70,6 +77,22 @@ const Monitor = () => {
             </Text>
           </Box>
           <Flex
+            justify={"center"}
+            align={"center"}
+            display={loading ? "block" : "none"}
+            h={"100%"}
+            w={"100%"}
+          >
+            <Image
+              mx={"auto"}
+              mt={"18vh"}
+              w={"50%"}
+              h={"auto"}
+              src={loadingGif}
+            />
+          </Flex>
+          <Flex
+            display={loading ? "none" : "block"}
             direction={"column"}
             mx={2}
             px={deviceId === "" ? 0 : 2}

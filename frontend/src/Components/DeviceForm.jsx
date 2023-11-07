@@ -12,7 +12,12 @@ const DeviceForm = () => {
   const [device_id, setDeviceId] = useState("");
   const navigate = useNavigate();
   const {user} = useSelector((state) => state.auth);
-  if(user) setUserId(user.user_id);
+
+  useEffect(() => {
+    if(user){
+      setUserId(user.user_id);
+    }
+  }, [user]);
 
   const registerDevice = async (e) => {
     e.preventDefault();
