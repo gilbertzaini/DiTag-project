@@ -15,6 +15,7 @@ import {
   MenuGroup,
   MenuOptionGroup,
   MenuDivider,
+  Text,
 } from "@chakra-ui/react";
 import logo from "../Assets/logo.png";
 import { Link as ReactLink, useNavigate } from "react-router-dom";
@@ -51,8 +52,8 @@ const Navbar = () => {
         >
           <Hide above="md">
             <Menu>
-              <MenuButton as={Button}>
-                <Image h={"5em"} src={logo} objectFit={"contain"} />
+              <MenuButton as={Button} bg={"transparent"} _active={{bg: "transparent"}}>
+                <Image h={"4rem"} src={logo} objectFit={"contain"} />
               </MenuButton>
               <MenuList>
                 <MenuGroup title="">
@@ -72,12 +73,12 @@ const Navbar = () => {
                         <ReactLink to="/reviews">Reviews</ReactLink>
                       </MenuItem>
 
-                      <MenuItem onClick={logout} ml={4}>
-                        Logout
+                      <MenuItem onClick={logout}>
+                        <Text ml={4}>Logout</Text>
                       </MenuItem>
 
-                      <MenuItem ml={4}>
-                          Notifications
+                      <MenuItem>
+                        <Text ml={4}>Notifications</Text>
                       </MenuItem>
                     </>
                   ) : (

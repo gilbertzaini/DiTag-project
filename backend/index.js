@@ -13,6 +13,7 @@ const reviewRouter = require("./routes/ReviewRoutes.js");
 
 const app = express();
 
+// session db
 const db = new Sequelize('ditag', 'root', '', {
   host: "localhost",
   dialect: "mysql"
@@ -24,11 +25,16 @@ const store = new sessionStore({
   db: db
 });
 
+// migrate session db
+// store.sync();
+
+// cors
 app.use(cors({
   credentials: true,
   origin: 'http://localhost:3000'
 }));
 
+// use session
 app.use(
   session({
     secret: 'ditag-solusi-kehilangan-barang',
@@ -51,8 +57,7 @@ app.use(coordinateRouter);
 app.use(notificationRouter);
 app.use(reviewRouter);
 
-// store.sync();
-
+// start server
 app.listen(8080, () => {
   console.log("Running on port 8080");
 });
