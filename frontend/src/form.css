@@ -54,7 +54,6 @@ input::placeholder {
 }
 
 #deviceRegisterForm form {
-  width: 20%;
   margin: auto;
   font-size: 1rem !important;
   font-weight: bolder !important;

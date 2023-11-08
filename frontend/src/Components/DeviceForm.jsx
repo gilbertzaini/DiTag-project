@@ -35,7 +35,7 @@ const DeviceForm = () => {
   };
 
   return (
-    <Box mt={"15rem"} id="deviceRegisterForm">
+    <Box mt={"15rem"} id="deviceRegisterForm" mx={"auto"} w={{base: "80%", xl:"20%"}}>
       <Image src={logo} h={"7rem"} mx={"auto"} />
       <form onSubmit={registerDevice}>
         {/* <Box my={5}>

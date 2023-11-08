@@ -109,8 +109,9 @@ const Map = (props) => {
       </Marker>
     </MapContainer>
   ) : (
-    <Flex justify={"center"} align={"center"} h={"100%"} w={"100%"}>
-      <Image my={"auto"} mx={"auto"} src={loading} h={"5rem"} w={"auto"} />
+    <Flex direction={"column"} justify={"center"} align={"center"} h={"100%"} w={"100%"}>
+      <Image mx={"auto"} src={loading} h={"7rem"} w={"auto"} />
+      <Text>Pastikan laman ini memiliki akses ke lokasi anda.</Text>
     </Flex>
   );
 };
