@@ -36,6 +36,18 @@ const login = async (req, res) => {
     if (!user) return res.status(400).json({ msg: "Credential Error" });
     const match = await bcrypt.compare(req.body.password, user.password);
     if (!match) return res.status(400).json({ msg: "Credential Error" });
+
+    // Generate a unique token for "Remember Me" functionality
+    const rememberMeToken = uuidv4();
+
+    // Set the token as a cookie with a long expiration time (e.g., 7 days)
+    res.cookie("rememberMe", rememberMeToken, {
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+      httpOnly: true,
+      secure: true,
+    });
+
+    // Set the user's session data
     req.session.userId = user.user_id;
     const user_id = user.user_id;
     const name = user.name;

@@ -71,6 +71,7 @@ const Navbar = () => {
               </>
             ) : (
               <>
+                <ReactLink to="/reviews">Reviews</ReactLink>
                 <ReactLink to="/login" color={"#000000"}>
                   Sign In
                 </ReactLink>

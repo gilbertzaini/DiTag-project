@@ -12,7 +12,12 @@ const DeviceForm = () => {
   const [device_id, setDeviceId] = useState("");
   const navigate = useNavigate();
   const {user} = useSelector((state) => state.auth);
-  if(user) setUserId(user.user_id);
+
+  useEffect(() => {
+    if(user){
+      setUserId(user.user_id);
+    }
+  }, [user]);
 
   const registerDevice = async (e) => {
     e.preventDefault();
@@ -30,7 +35,7 @@ const DeviceForm = () => {
   };
 
   return (
-    <Box mt={"15rem"} id="deviceRegisterForm">
+    <Box mt={"15rem"} id="deviceRegisterForm" mx={"auto"} w={{base: "80%", xl:"20%"}}>
       <Image src={logo} h={"7rem"} mx={"auto"} />
       <form onSubmit={registerDevice}>
         {/* <Box my={5}>

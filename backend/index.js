@@ -1,6 +1,8 @@
 const express = require("express");
 const cors = require("cors");
 const session = require("express-session");
+const Sequelize = require("sequelize");
+const {Session} = require("./models/index.js");
 
 const authRouter = require("./routes/AuthRoutes.js");
 const userRouter = require("./routes/UserRoutes.js");
@@ -11,6 +13,17 @@ const reviewRouter = require("./routes/ReviewRoutes.js");
 
 const app = express();
 
+const db = new Sequelize('ditag', 'root', '', {
+  host: "localhost",
+  dialect: "mysql"
+});
+
+var sessionStore = require("connect-session-sequelize")(session.Store);
+
+const store = new sessionStore({
+  db: db
+});
+
 app.use(cors({
   credentials: true,
   origin: 'http://localhost:3000'
@@ -18,9 +31,14 @@ app.use(cors({
 
 app.use(
   session({
-    secret: 'ditag-solusi-kehilangan-barang', // Replace with a strong secret key
+    secret: 'ditag-solusi-kehilangan-barang',
     resave: false,
-    saveUninitialized: true
+    saveUninitialized: true,
+    store: store,
+    cookie: {
+      secure: 'auto',
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    }
   })
 );
 
@@ -33,4 +51,8 @@ app.use(coordinateRouter);
 app.use(notificationRouter);
 app.use(reviewRouter);
 
-app.listen(8080, () => {console.log("Running on port 8080")})
+// store.sync();
+
+app.listen(8080, () => {
+  console.log("Running on port 8080");
+});
