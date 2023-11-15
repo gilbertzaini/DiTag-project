@@ -21,6 +21,7 @@ const updateCoordinate = async(req, res) => {
                 device_id: req.params.device_id,
             }
         });
+        io.emit('coordinateUpdated', devices);
         res.status(221).json({msg: "Coordinate Updated"});
     }catch(e){
         console.log(e.message);

@@ -2,7 +2,8 @@ const express = require("express");
 const cors = require("cors");
 const session = require("express-session");
 const Sequelize = require("sequelize");
-const {Session} = require("./models/index.js");
+const { Session } = require("./models/index.js");
+const { Server } = require("socket.io");
 
 const authRouter = require("./routes/AuthRoutes.js");
 const userRouter = require("./routes/UserRoutes.js");
@@ -12,41 +13,55 @@ const notificationRouter = require("./routes/NotificationRoutes.js");
 const reviewRouter = require("./routes/ReviewRoutes.js");
 
 const app = express();
+const server = require("http").createServer(app); // Fix this line
 
 // session db
-const db = new Sequelize('ditag', 'root', '', {
+const db = new Sequelize("ditag", "root", "", {
   host: "localhost",
-  dialect: "mysql"
+  dialect: "mysql",
 });
 
 var sessionStore = require("connect-session-sequelize")(session.Store);
 
 const store = new sessionStore({
-  db: db
+  db: db,
 });
 
 // migrate session db
 // store.sync();
 
 // cors
-app.use(cors({
-  credentials: true,
-  origin: 'http://localhost:3000'
-}));
+app.use(
+  cors({
+    credentials: true,
+    origin: "http://localhost:3000",
+  })
+);
 
 // use session
 app.use(
   session({
-    secret: 'ditag-solusi-kehilangan-barang',
+    secret: "ditag-solusi-kehilangan-barang",
     resave: false,
     saveUninitialized: true,
     store: store,
     cookie: {
-      secure: 'auto',
+      secure: "auto",
       maxAge: 7 * 24 * 60 * 60 * 1000,
-    }
+    },
   })
 );
+
+// socket
+const io = new Server(server, {
+  cors: {
+    origin: "http://localhost:3000",
+  },
+});
+
+io.on('connection', (socket) => {
+  console.log("Connection on: " + socket.id)
+})
 
 // Routes
 app.use(express.json());
@@ -58,6 +73,10 @@ app.use(notificationRouter);
 app.use(reviewRouter);
 
 // start server
-app.listen(8080, () => {
-  console.log("Running on port 8080");
+// app.listen(8080, () => {
+//   console.log("Running on port 8080");
+// });
+
+server.listen(8080, () => {
+  console.log("Socket running on port 8080");
 });

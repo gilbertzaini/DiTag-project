@@ -6,6 +6,7 @@ import axios from "axios";
 import Map from "./Map";
 import { useSelector } from "react-redux";
 import { Link as ReactLink } from "react-router-dom";
+import { useSocket } from '../Features/SocketContext';
 
 const Monitor = () => {
   const [devices, setDevices] = useState([]);
@@ -15,6 +16,7 @@ const Monitor = () => {
   const [deviceId, setDeviceId] = useState("");
   const [loading, setLoading] = useState(true);
   const { user } = useSelector((state) => state.auth);
+  const socket = useSocket();
 
   const getDevices = async () => {
     if (user) {
@@ -34,6 +36,16 @@ const Monitor = () => {
   useEffect(() => {
     getDevices();
   }, []);
+
+  useEffect(() => {
+    socket.on('coordinateUpdated', (updatedData) => {
+      setDevices(updatedData);
+    });
+
+    return () => {
+      socket.off('newPot');
+    };
+  }, [socket]);
 
   // useEffect(() => {
   //   console.log(deviceLatitude, deviceLongitude);

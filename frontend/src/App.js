@@ -10,23 +10,30 @@ import Monitoring from "./Pages/monitoring";
 import Reviews from "./Pages/reviews";
 import LoginTest from "./Components/LoginTest";
 
+import SocketContext from "./Features/SocketContext";
+import { io } from "socket.io-client";
+
+const socket = io("http://localhost:8888");
+
 function App() {
   return (
-    <ChakraProvider>
-      <BrowserRouter>
-        <div className="App">
-          <Routes>
-            <Route index element={<Index />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/device/register" element={<RegisterDevice />} />
-            <Route path="/device/monitor" element={<Monitoring />} />
-            <Route path="/reviews" element={<Reviews />} />
-            <Route path="/logintest" element={<LoginTest />} />
-          </Routes>
-        </div>
-      </BrowserRouter>
-    </ChakraProvider>
+    <SocketContext.Provider value={socket}>
+      <ChakraProvider>
+        <BrowserRouter>
+          <div className="App">
+            <Routes>
+              <Route index element={<Index />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="/device/register" element={<RegisterDevice />} />
+              <Route path="/device/monitor" element={<Monitoring />} />
+              <Route path="/reviews" element={<Reviews />} />
+              <Route path="/logintest" element={<LoginTest />} />
+            </Routes>
+          </div>
+        </BrowserRouter>
+      </ChakraProvider>
+    </SocketContext.Provider>
   );
 }
 
