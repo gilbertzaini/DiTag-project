@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {
+  Flex,
   Button,
   Modal,
   ModalOverlay,
@@ -12,6 +13,15 @@ import {
   FormLabel,
   Textarea,
   Input,
+  NumberInput,
+  NumberInputField,
+  NumberInputStepper,
+  NumberIncrementStepper,
+  NumberDecrementStepper,
+  Slider,
+  SliderTrack,
+  SliderFilledTrack,
+  SliderThumb,
 } from "@chakra-ui/react";
 import { useDisclosure } from "@chakra-ui/react";
 import axios from "axios";
@@ -26,6 +36,8 @@ const ReviewModal = () => {
   const [canReview, setCanReview] = useState(true);
   const { user } = useSelector((state) => state.auth);
   const socket = useSocket();
+
+  const handleChange = (value) => setRate(value)
 
   const getReview = async () => {
     const response = await axios.get("http://localhost:8080/review");
@@ -96,7 +108,7 @@ const ReviewModal = () => {
                   resize={"vertical"}
                 />
               </FormControl>
-              <FormControl>
+              {/* <FormControl>
                 <FormLabel>Rate</FormLabel>
                 <Input
                   value={rate}
@@ -105,7 +117,38 @@ const ReviewModal = () => {
                   min={1}
                   max={5}
                 />
-              </FormControl>
+              </FormControl> */}
+              <Flex>
+                <NumberInput
+                  maxW="100px"
+                  mr="2rem"
+                  value={rate}
+                  onChange={handleChange}
+                  max={5}
+                  min={1}
+                  step={0.1}
+                >
+                  <NumberInputField />
+                  <NumberInputStepper>
+                    <NumberIncrementStepper />
+                    <NumberDecrementStepper />
+                  </NumberInputStepper>
+                </NumberInput>
+                <Slider
+                  flex="1"
+                  focusThumbOnChange={false}
+                  value={rate}
+                  onChange={handleChange}
+                  max={5}
+                  min={1}
+                  step={0.1}
+                >
+                  <SliderTrack>
+                    <SliderFilledTrack />
+                  </SliderTrack>
+                  <SliderThumb fontSize="sm" boxSize="32px" children={rate} />
+                </Slider>
+              </Flex>
             </ModalBody>
 
             <ModalFooter>
