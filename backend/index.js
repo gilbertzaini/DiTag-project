@@ -12,8 +12,10 @@ const coordinateRouter = require("./routes/CoordinateRoutes.js");
 const notificationRouter = require("./routes/NotificationRoutes.js");
 const reviewRouter = require("./routes/ReviewRoutes.js");
 
+const { Review, User } = require("./models");
+
 const app = express();
-const server = require("http").createServer(app); // Fix this line
+const server = require("http").createServer(app);
 
 // session db
 const db = new Sequelize("ditag", "root", "", {
@@ -59,9 +61,9 @@ const io = new Server(server, {
   },
 });
 
-io.on('connection', (socket) => {
-  console.log("Connection on: " + socket.id)
-})
+io.on("connection", (socket) => {
+  console.log("Connection on: " + socket.id);
+});
 
 // Routes
 app.use(express.json());
@@ -71,6 +73,29 @@ app.use(deviceRouter);
 app.use(coordinateRouter);
 app.use(notificationRouter);
 app.use(reviewRouter);
+
+// Routes using Socket
+app.post("/review", async (req, res) => {
+  try {
+    console.log(req.body);
+    const newReview = await Review.create(req.body);
+
+    const reviews = await Review.findAll({
+      include: [
+        {
+          model: User,
+          as: "User",
+        }
+      ]
+    });
+    console.log(reviews);
+    io.emit("newReview", reviews);
+
+    res.status(241).json({ msg: "Review Added", device: newReview });
+  } catch (e) {
+    console.log(e.message);
+  }
+});
 
 // start server
 // app.listen(8080, () => {

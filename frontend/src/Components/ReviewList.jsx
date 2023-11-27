@@ -3,23 +3,57 @@ import { FaStar } from "react-icons/fa";
 import { LuQuote } from "react-icons/lu";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import ReviewModal from "./ReviewModal";
+import { useSelector } from "react-redux";
+import { useSocket } from "../Features/SocketContext.js";
 
 const ReviewList = () => {
   const [reviews, setReviews] = useState([]);
+  const { user } = useSelector((state) => state.auth);
+  const socket = useSocket();
 
   useEffect(() => {
     getReviews();
   }, []);
 
+  useEffect(() => {
+    console.log("Socket connected:", socket.connected);
+    
+    socket.on('newReview', (updatedData) => {
+      console.log("Received new review:", updatedData);
+      setReviews(updatedData);
+    });
+  
+    return () => {
+      socket.off('newReview');
+    };
+  }, [socket]);
+  
+
   const getReviews = async () => {
     const response = await axios.get("http://localhost:8080/review");
     setReviews(response.data);
   };
+
   return (
     <>
-    <Heading mt={"10%"} fontSize={"3rem"}>Our Reviews</Heading>
-    <Text fontSize={"0.8rem"}>What they say about DiTag</Text>
-      <Flex flexWrap={"wrap"} align={"around"} mt={5} w={"85%"} mx={"auto"}>
+      <Heading mt={"10%"} fontSize={"3rem"}>
+        Our Reviews
+      </Heading>
+      <Text fontSize={"0.8rem"}>What they say about DiTag</Text>
+      {user && (
+        <Flex w={"90vw"} justify={"end"} align={"center"}>
+          <ReviewModal />
+        </Flex>
+      )}
+      <Flex
+        flexWrap={"wrap"}
+        justify={"center"}
+        align={"around"}
+        mt={5}
+        w={"85%"}
+        mx={"auto"}
+      >
         <Flex
           id="review"
           bg={"white"}

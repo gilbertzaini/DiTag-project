@@ -22,6 +22,11 @@ const postReview = async (req, res) => {
   try {
     console.log(req.body);
     const newReview = await Review.create(req.body);
+
+    // const reviews = await Review.findAll();
+    // console.log(reviews);
+    // io.emit("newReview", reviews);
+
     res.status(241).json({ msg: "Review Added", device: newReview });
   } catch (e) {
     console.log(e.message);

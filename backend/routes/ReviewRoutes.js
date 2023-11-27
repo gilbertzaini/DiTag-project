@@ -4,7 +4,7 @@ const { getReview, updateReview, postReview } = require("../controllers/reviewCo
 const reviewRouter = express.Router();
 
 reviewRouter.get('/review', getReview);
-reviewRouter.post('/review', postReview);
+// reviewRouter.post('/review', postReview);
 reviewRouter.patch('/review/:id', updateReview);
 
 module.exports = reviewRouter;
