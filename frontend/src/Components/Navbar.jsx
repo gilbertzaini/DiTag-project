@@ -21,6 +21,7 @@ import logo from "../Assets/logo.png";
 import { Link as ReactLink, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { LogOut, reset } from "../Features/authSlice";
+import NotificationHover from "./NotificationHover";
 
 const Navbar = () => {
   const dispatch = useDispatch();
@@ -133,7 +134,7 @@ const Navbar = () => {
                   >
                     Logout
                   </Button>
-                  <Button
+                  {/* <Button
                     h={"3.5em"}
                     bg={"#060640"}
                     color={"#FFFFFF"}
@@ -141,7 +142,8 @@ const Navbar = () => {
                     _hover={"transform: scale(1.1)"}
                   >
                     Notifications
-                  </Button>
+                  </Button> */}
+                  <NotificationHover/>
                 </>
               ) : (
                 <>

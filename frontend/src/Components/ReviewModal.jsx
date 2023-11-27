@@ -12,7 +12,6 @@ import {
   FormControl,
   FormLabel,
   Textarea,
-  Input,
   NumberInput,
   NumberInputField,
   NumberInputStepper,
@@ -72,6 +71,7 @@ const ReviewModal = () => {
         rate,
       });
       onClose();
+      setCanReview(false);
     } catch (e) {
       console.log(e.message);
     }
@@ -127,6 +127,7 @@ const ReviewModal = () => {
                   max={5}
                   min={1}
                   step={0.1}
+                  defaultValue={5}
                 >
                   <NumberInputField />
                   <NumberInputStepper>
@@ -142,6 +143,7 @@ const ReviewModal = () => {
                   max={5}
                   min={1}
                   step={0.1}
+                  defaultValue={5}
                 >
                   <SliderTrack>
                     <SliderFilledTrack />
