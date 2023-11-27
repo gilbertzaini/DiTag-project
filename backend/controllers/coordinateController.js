@@ -8,7 +8,7 @@ const getDeviceCoordinate = async(req, res) => {
                 device_id: req.params.device_id,
             }
         });
-        res.status(220).json(response);
+        res.status(200).json(response);
     }catch(e){
         console.log(e.message);
     }
@@ -22,7 +22,7 @@ const updateCoordinate = async(req, res) => {
             }
         });
         io.emit('coordinateUpdated', devices);
-        res.status(221).json({msg: "Coordinate Updated"});
+        res.status(204).json({msg: "Coordinate Updated"});
     }catch(e){
         console.log(e.message);
     }

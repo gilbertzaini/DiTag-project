@@ -12,7 +12,7 @@ const getReview = async (req, res) => {
         },
       ],
     });
-    res.status(240).json(response);
+    res.status(200).json(response);
   } catch (e) {
     console.log(e.message);
   }
@@ -27,7 +27,7 @@ const postReview = async (req, res) => {
     // console.log(reviews);
     // io.emit("newReview", reviews);
 
-    res.status(241).json({ msg: "Review Added", device: newReview });
+    res.status(201).json({ msg: "Review Added", device: newReview });
   } catch (e) {
     console.log(e.message);
   }
@@ -40,7 +40,7 @@ const updateReview = async (req, res) => {
         id: req.params.id,
       },
     });
-    res.status(242).json({ msg: "Review Updated" });
+    res.status(204).json({ msg: "Review Updated" });
   } catch (e) {
     console.log(e.message);
   }

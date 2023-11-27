@@ -91,7 +91,7 @@ app.post("/review", async (req, res) => {
     console.log(reviews);
     io.emit("newReview", reviews);
 
-    res.status(241).json({ msg: "Review Added", device: newReview });
+    res.status(201).json({ msg: "Review Added", device: newReview });
   } catch (e) {
     console.log(e.message);
   }

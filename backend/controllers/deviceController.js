@@ -10,7 +10,7 @@ const registerDevice = async (req, res) => {
       latitude: -6.256074184519056,
       longitude: 106.61855424641801,
     });
-    res.status(210).json({ msg: "Device Added", device: newDevice });
+    res.status(201).json({ msg: "Device Added", device: newDevice });
   } catch (e) {
     console.log(e.message);
   }
@@ -32,7 +32,7 @@ const getDevice = async (req, res) => {
       }
     ],
     });
-    res.status(211).json(response);
+    res.status(200).json(response);
   } catch (e) {
     console.log(e.message);
   }
@@ -45,7 +45,7 @@ const updateDevice = async (req, res) => {
         device_id: req.params.device_id,
       },
     });
-    res.status(212).json({ msg: "Device Updated" });
+    res.status(204).json({ msg: "Device Updated" });
   } catch (e) {
     console.log(e.message);
   }
@@ -63,7 +63,7 @@ const deleteDevice = async (req, res) => {
         device_id: req.params.device_id,
       },
     });
-    res.status(213).json({ msg: "Device Deleted" });
+    res.status(204).json({ msg: "Device Deleted" });
   } catch (e) {
     console.log(e.message);
   }

@@ -8,7 +8,7 @@ const getNotification = async (req, res) => {
         user_id: req.params.user_id,
       },
     });
-    res.status(230).json(response);
+    res.status(200).json(response);
   } catch (e) {
     console.log(e.message);
   }
@@ -21,7 +21,7 @@ const deleteNotification = async (req, res) => {
         id: req.params.id,
       },
     });
-    res.status(231).json({ msg: "User Deleted" });
+    res.status(204).json({ msg: "User Deleted" });
   } catch (e) {
     console.log(e.message);
   }
