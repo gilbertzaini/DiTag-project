@@ -11,7 +11,7 @@ const initialState = {
 
 export const LoginUser = createAsyncThunk("user/LoginUser", async(user, thunkAPI) => {
     try {
-        const response = await axios.post('http://localhost:8080/login', {
+        const response = await axios.post('https://api.punca.my.id/login', {
             email: user.email,
             password: user.password
         });
@@ -28,7 +28,7 @@ export const LoginUser = createAsyncThunk("user/LoginUser", async(user, thunkAPI
 
 export const getMe = createAsyncThunk("user/getMe", async(_, thunkAPI) => {
     try {
-        const response = await axios.get('http://localhost:8080/logged-in-user');
+        const response = await axios.get('https://api.punca.my.id/logged-in-user');
         console.log("Logged in user's data:");
         console.log(response.data);
         return response.data;
@@ -41,7 +41,7 @@ export const getMe = createAsyncThunk("user/getMe", async(_, thunkAPI) => {
 });
 
 export const LogOut = createAsyncThunk("user/LogOut", async() => {
-    await axios.delete('http://localhost:8080/logout');
+    await axios.delete('https://api.punca.my.id/logout');
 });
 
 export const authSlice = createSlice({

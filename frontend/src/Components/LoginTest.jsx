@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 const LoginTest = () => {
   const getUser = async () => {
     try {
-      const response = await axios.get("http://localhost:8080/logged-in-user");
+      const response = await axios.get("https://api.punca.my.id/logged-in-user");
       console.log(`this session's user: ${response.data.name}`);
       console.log(`this session's email: ${response.data.email}`);
       console.log(`this session's uid: ${response.data.user_id}`);

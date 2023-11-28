@@ -35,7 +35,7 @@ function RegisterForm() {
     e.preventDefault();
 
     try {
-      await axios.post("http://localhost:8080/register", {
+      await axios.post("https://api.punca.my.id/register", {
         name,
         email,
         password,

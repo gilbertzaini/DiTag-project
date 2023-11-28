@@ -39,7 +39,7 @@ const ReviewModal = () => {
   const handleChange = (value) => setRate(value)
 
   const getReview = async () => {
-    const response = await axios.get("http://localhost:8080/review");
+    const response = await axios.get("https://api.punca.my.id/review");
     const votedUsers = response.data;
     for (let i = 0; i < votedUsers.length; i++) {
       if (user.user_id === votedUsers[i].user_id) {
@@ -65,7 +65,7 @@ const ReviewModal = () => {
     try {
       socket.emit("addReview", "a new review is added");
 
-      await axios.post("http://localhost:8080/review", {
+      await axios.post("https://api.punca.my.id/review", {
         user_id,
         message,
         rate,

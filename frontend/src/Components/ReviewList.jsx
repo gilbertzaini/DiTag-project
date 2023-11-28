@@ -31,7 +31,7 @@ const ReviewList = () => {
   
 
   const getReviews = async () => {
-    const response = await axios.get("http://localhost:8080/review");
+    const response = await axios.get("https://api.punca.my.id/review");
     setReviews(response.data);
   };
 

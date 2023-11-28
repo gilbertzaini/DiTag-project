@@ -14,10 +14,10 @@
     "dialect": "mysql"
   },
   "production": {
-    "username": "root",
-    "password": null,
-    "database": "database_production",
-    "host": "127.0.0.1",
+    "username": "ofdmhbcm_admin",
+    "password": "adminDITAG",
+    "database": "ofdmhbcm_ditag",
+    "host": "api.punca.my.id",
     "dialect": "mysql"
   }
 }

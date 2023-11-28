@@ -24,7 +24,7 @@ const Monitor = () => {
     if (user) {
       try {
         const response = await axios.get(
-          `http://localhost:8080/device/${user.user_id}`
+          `https://api.punca.my.id/device/${user.user_id}`
         );
         setDevices(response.data);
         console.log(response.data);

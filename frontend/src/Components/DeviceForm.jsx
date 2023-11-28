@@ -23,7 +23,7 @@ const DeviceForm = () => {
     e.preventDefault();
 
     try {
-      await axios.post("http://localhost:8080/device/register", {
+      await axios.post("https://api.punca.my.id/device/register", {
         user_id,
         name,
         device_id,

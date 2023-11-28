@@ -26,7 +26,7 @@ const HomePage = () => {
   const { user } = useSelector((state) => state.auth);
 
   const getUser = async () => {
-    const response = await axios.get("http://localhost:8080/users");
+    const response = await axios.get("https://api.punca.my.id/users");
     setUsers(response.data);
     console.log(response.data);
   };

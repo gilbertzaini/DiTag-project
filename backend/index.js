@@ -18,8 +18,8 @@ const app = express();
 const server = require("http").createServer(app);
 
 // session db
-const db = new Sequelize("ditag", "root", "", {
-  host: "localhost",
+const db = new Sequelize("ofdmhbcm_ditag", "ofdmhbcm_admin", "adminDITAG", {
+  host: "api.punca.my.id",
   dialect: "mysql",
 });
 
@@ -36,7 +36,7 @@ const store = new sessionStore({
 app.use(
   cors({
     credentials: true,
-    origin: "http://localhost:3000",
+    origin: "https://punca.my.id",
   })
 );
 
@@ -57,7 +57,7 @@ app.use(
 // socket
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: "https://punca.my.id",
   },
 });
 
