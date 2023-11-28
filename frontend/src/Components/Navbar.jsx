@@ -51,7 +51,7 @@ const Navbar = () => {
           zIndex={10}
           rounded={"10px"}
         >
-          <Hide above="md">
+          <Hide above="lg">
             <Menu>
               <MenuButton as={Button} bg={"transparent"} _active={{bg: "transparent"}}>
                 <Image h={"4rem"} src={logo} objectFit={"contain"} />
@@ -106,7 +106,7 @@ const Navbar = () => {
             </Menu>
           </Hide>
 
-          <Hide below="md">
+          <Hide below="lg">
             <ReactLink to={"/"}>
               <Image h={"5em"} src={logo} objectFit={"contain"} />
             </ReactLink>

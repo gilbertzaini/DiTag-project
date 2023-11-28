@@ -21,11 +21,6 @@ import { Link } from "react-router-dom";
 
 const NotificationHover = () => {
   const initialFocusRef = useRef(null);
-  const [showDelete, setShowDelete] = useState(false);
-
-  const triggerShow = () => {
-    setShowDelete(!showDelete);
-  };
 
   return (
     <Popover

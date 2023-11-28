@@ -6,7 +6,7 @@ import axios from "axios";
 import Map from "./Map";
 import { useSelector } from "react-redux";
 import { Link as ReactLink } from "react-router-dom";
-import { useSocket } from '../Features/SocketContext';
+import { useSocket } from "../Features/SocketContext";
 
 const Monitor = () => {
   const [devices, setDevices] = useState([]);
@@ -15,6 +15,8 @@ const Monitor = () => {
   const [deviceName, setDeviceName] = useState("");
   const [deviceId, setDeviceId] = useState("");
   const [loading, setLoading] = useState(true);
+  const [updatedAt, setUpdatedAt] = useState(null);
+  const [lastUpdate, setLastUpdate] = useState(null);
   const { user } = useSelector((state) => state.auth);
   const socket = useSocket();
 
@@ -38,14 +40,21 @@ const Monitor = () => {
   }, []);
 
   useEffect(() => {
-    socket.on('coordinateUpdated', (updatedData) => {
+    socket.on("coordinateUpdated", (updatedData) => {
       setDevices(updatedData);
     });
 
     return () => {
-      socket.off('newPot');
+      socket.off("newPot");
     };
   }, [socket]);
+
+  useEffect(() => {
+    const now = new Date();
+    const temp = new Date(updatedAt).toLocaleString();
+    setLastUpdate(temp);
+    console.log(lastUpdate);
+  }, [updatedAt])
 
   // useEffect(() => {
   //   console.log(deviceLatitude, deviceLongitude);
@@ -58,7 +67,7 @@ const Monitor = () => {
   return (
     <Box
       position={"relative"}
-      pt={{base: "7rem", xl:"9rem"}}
+      pt={{ base: "7rem", xl: "9rem" }}
       px={"5%"}
       maxH={"100vh"}
       w={{ base: "100vw", xl: "inherit" }}
@@ -139,6 +148,7 @@ const Monitor = () => {
                       setDeviceLongitude(device.Coordinate.longitude);
                       setDeviceName(device.name);
                       setDeviceId(device.device_id);
+                      setUpdatedAt(device.updatedAt);
                     }}
                     my={1}
                     w={"100%"}
@@ -154,53 +164,58 @@ const Monitor = () => {
                       textAlign={"start"}
                       direction={"column"}
                       fontWeight={500}
+                      w={"100%"}
                     >
                       <Text
                         color="black"
                         fontSize={{ base: "0.8rem", xl: "1rem" }}
                         fontWeight={600}
                       >
-                        {device.User.name} - {device.name}
-                      </Text>
-                      {/* <Text color="black" fontSize={"0.75rem"}>
-                  Multimedia Nusantara University
-                </Text> */}
-                      <Text
-                        color="black"
-                        fontSize={{ base: "0.65rem", xl: "0.75rem" }}
-                      >
-                        Latitude: {device.Coordinate.latitude}
+                        {device.name}
                       </Text>
                       <Text
                         color="black"
                         fontSize={{ base: "0.65rem", xl: "0.75rem" }}
                       >
-                        Longitude: {device.Coordinate.longitude}
+                        Power: {device.battery_percentage || "100%"}
                       </Text>
                       <Text
                         color="black"
                         fontSize={{ base: "0.65rem", xl: "0.75rem" }}
                       >
-                        -now
+                        Status: {device.status}
+                      </Text>
+                      <Text
+                        color="black"
+                        fontSize={{ base: "0.65rem", xl: "0.75rem" }}
+                      >
+                        {/* {new Date(device.updatedAt) - new Date()} */}
+                        {new Date(device.updatedAt).toLocaleString()}
                       </Text>
                     </Flex>
                     {/* <Text
-                  color="black"
-                  fontSize={"0.8rem"}
-                  textAlign={"end"}
-                  mt={"2px"}
-                >
-                  0km
-                </Text> */}
+                      color="black"
+                      fontSize={"0.8rem"}
+                      textAlign={"end"}
+                      mt={"2px"}
+                    >
+                      0km
+                    </Text> */}
                   </Button>
                 ))}
               </>
             ) : (
               <>
-                <Flex justify={"center"} align={"center"} fontSize={"1rem"} w={"100%"} h={"100%"}>
+                <Flex
+                  justify={"center"}
+                  align={"center"}
+                  fontSize={"1rem"}
+                  w={"100%"}
+                  h={"100%"}
+                >
                   <Box textDecor={"underline"} color={"blue"}>
                     <ReactLink to={"/device/register"}>Register</ReactLink>
-                    </Box>
+                  </Box>
                   <Text ml={1}>your device now</Text>
                 </Flex>
               </>
