@@ -1,4 +1,12 @@
-import { Box, Button, Flex, Heading, Image, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Flex,
+  Heading,
+  Image,
+  Text,
+  Spacer,
+} from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import loadingGif from "../Assets/loading.gif";
 // import map_sample from "../Assets/map_sample.png";
@@ -7,6 +15,7 @@ import Map from "./Map";
 import { useSelector } from "react-redux";
 import { Link as ReactLink } from "react-router-dom";
 import { useSocket } from "../Features/SocketContext";
+import { RiEditFill, RiDeleteBin5Line } from "react-icons/ri";
 
 const Monitor = () => {
   const [devices, setDevices] = useState([]);
@@ -27,7 +36,7 @@ const Monitor = () => {
           `https://api.punca.my.id/device/${user.user_id}`
         );
         setDevices(response.data);
-        console.log(response.data);
+        // console.log(response.data);
         setLoading(false);
       } catch (error) {
         console.error("Error fetching devices:", error);
@@ -53,8 +62,18 @@ const Monitor = () => {
     const now = new Date();
     const temp = new Date(updatedAt).toLocaleString();
     setLastUpdate(temp);
-    console.log(lastUpdate);
-  }, [updatedAt])
+    // console.log(lastUpdate);
+  }, [updatedAt]);
+
+  const deleteDevice = async (id) => {
+    try {
+      await axios.delete(`http://localhost:8080/device/${id}`);
+      console.log("deleted");
+      getDevices();
+    } catch (e) {
+      console.log(e.message);
+    }
+  };
 
   // useEffect(() => {
   //   console.log(deviceLatitude, deviceLongitude);
@@ -140,7 +159,7 @@ const Monitor = () => {
             {devices.length > 0 ? (
               <>
                 {devices.map((device) => (
-                  <Button
+                  <Box
                     // bg={"transparent"}
                     bg={deviceId === device.device_id ? "white" : "transparent"}
                     onClick={() => {
@@ -153,55 +172,70 @@ const Monitor = () => {
                     my={1}
                     w={"100%"}
                     h={"fit-content"}
-                    p={3}
+                    px={3}
+                    py={1}
                     borderRadius={"12px"}
+                    _hover={{ transform: "scale(1.05)" }}
                     transform={{
                       base: "",
-                      xl: deviceId === device.device_id ? "scale(1.1)" : "",
+                      xl: deviceId === device.device_id ? "scale(1.05)" : "",
                     }}
+                    transition={"0.4s ease"}
                   >
-                    <Flex
-                      textAlign={"start"}
-                      direction={"column"}
-                      fontWeight={500}
-                      w={"100%"}
-                    >
-                      <Text
-                        color="black"
-                        fontSize={{ base: "0.8rem", xl: "1rem" }}
-                        fontWeight={600}
+                    <Flex justify={"space-between"}>
+                      <Flex
+                        textAlign={"start"}
+                        direction={"column"}
+                        fontWeight={500}
+                        w={"90%"}
                       >
-                        {device.name}
-                      </Text>
-                      <Text
-                        color="black"
-                        fontSize={{ base: "0.65rem", xl: "0.75rem" }}
-                      >
-                        Power: {device.battery_percentage || "100%"}
-                      </Text>
-                      <Text
-                        color="black"
-                        fontSize={{ base: "0.65rem", xl: "0.75rem" }}
-                      >
-                        Status: {device.status}
-                      </Text>
-                      <Text
-                        color="black"
-                        fontSize={{ base: "0.65rem", xl: "0.75rem" }}
-                      >
-                        {/* {new Date(device.updatedAt) - new Date()} */}
-                        {new Date(device.updatedAt).toLocaleString()}
-                      </Text>
+                        <Text
+                          color="black"
+                          fontSize={{ base: "0.8rem", xl: "1rem" }}
+                          fontWeight={600}
+                          mb={1}
+                        >
+                          {device.name}
+                        </Text>
+                        <Text
+                          color="black"
+                          fontSize={{ base: "0.65rem", xl: "0.75rem" }}
+                        >
+                          Power: {device.battery_percentage || "100%"}
+                        </Text>
+                        <Text
+                          color="black"
+                          fontSize={{ base: "0.65rem", xl: "0.75rem" }}
+                        >
+                          Status: {device.status}
+                        </Text>
+                        <Text
+                          color="black"
+                          fontSize={{ base: "0.65rem", xl: "0.75rem" }}
+                        >
+                          {/* {new Date(device.updatedAt) - new Date()} */}
+                          {new Date(device.updatedAt).toLocaleString()}
+                        </Text>
+                      </Flex>
+                      <Flex direction={"column"} align={"center"}>
+                        <Button
+                          variant={"unstyled"}
+                          _hover={{ transform: "scale(1.1)" }}
+                        >
+                          <RiEditFill size={"20px"} />
+                        </Button>
+                        <Button
+                          variant={"unstyled"}
+                          _hover={{ transform: "scale(1.1)" }}
+                          onClick={() => {
+                            deleteDevice(device.device_id);
+                          }}
+                        >
+                          <RiDeleteBin5Line size={"20px"} fill="red" />
+                        </Button>
+                      </Flex>
                     </Flex>
-                    {/* <Text
-                      color="black"
-                      fontSize={"0.8rem"}
-                      textAlign={"end"}
-                      mt={"2px"}
-                    >
-                      0km
-                    </Text> */}
-                  </Button>
+                  </Box>
                 ))}
               </>
             ) : (
