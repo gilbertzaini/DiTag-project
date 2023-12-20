@@ -1,26 +1,77 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   Popover,
   PopoverTrigger,
   PopoverContent,
-  PopoverHeader,
   PopoverBody,
   PopoverFooter,
   PopoverArrow,
-  PopoverCloseButton,
-  PopoverAnchor,
   Button,
-  Box,
-  ButtonGroup,
   Flex,
   Text,
   Spacer,
 } from "@chakra-ui/react";
+import { useSelector } from "react-redux";
 import { TiDeleteOutline } from "react-icons/ti";
+import { PiBellSimpleRinging } from "react-icons/pi";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import { useSocket } from "../Features/SocketContext.js";
 
-const NotificationHover = () => {
+const NotificationHover = (props) => {
   const initialFocusRef = useRef(null);
+  const { user } = useSelector((state) => state.auth);
+  const [notifications, setNotifications] = useState([]);
+  const socket = useSocket();
+
+  const getNotif = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:8080/notifications/${user.user_id}`
+      );
+      console.log(response.data);
+      setNotifications(response.data);
+    } catch (e) {
+      console.log(e.message);
+    }
+  };
+
+  const deleteNotif = async (id) => {
+    try {
+      await axios.delete(`http://localhost:8080/notifications/${id}`);
+      getNotif();
+    } catch (e) {
+      console.log(e.message);
+    }
+  };
+
+  const pingDevice = async (id) => {
+    try {
+      await axios.post(`http://localhost:8080/device/ring/${id}`);
+      await new Promise((resolve) => setTimeout(resolve, 3000)); // 3 seconds delay
+      await axios.post(`http://localhost:8080/device/mute/${id}`);
+      console.log(`Ping request for ${id} sent`);
+    } catch (e) {
+      console.log(e.message);
+    }
+  };
+
+  useEffect(() => {
+    getNotif();
+  }, []);
+
+  useEffect(() => {
+    console.log("Socket connected:", socket.connected);
+
+    socket.on("newNotification", (updatedData) => {
+      console.log("Received new notification:", updatedData);
+      setNotifications(updatedData);
+    });
+
+    return () => {
+      socket.off("newNotification");
+    };
+  }, [socket]);
 
   return (
     <Popover
@@ -40,10 +91,10 @@ const NotificationHover = () => {
         </Button>
       </PopoverTrigger>
       <PopoverContent
-        color="white"
-        bg="#060640"
+        color="#060640"
+        bg="#FFFFFF"
         borderRadius={"8pt"}
-        borderColor="blue.800"
+        borderColor="#060640"
         py={2}
       >
         {/* <PopoverHeader pt={4} fontWeight="bold" border="0">
@@ -52,110 +103,63 @@ const NotificationHover = () => {
         <PopoverArrow bg="#060640" />
         {/* <PopoverCloseButton /> */}
         <PopoverBody minH={"fit-content"} maxH={"28.5vh"} overflowY={"auto"}>
-          <Flex
-            bg={"lightblue"}
-            h={"6vh"}
-            mb={2}
-            borderRadius={"8pt"}
-            pl={3}
-            alignItems={"center"}
-          >
-            <Text color={"white"}>Notif</Text>
-            <Spacer />
-            <Button
-              justifySelf={"end"}
-              bg={"transparent"}
-              _hover={{ bg: "transparent", transform: "scale(1.1)" }}
-            >
-              <Box w={"22px"} h={"auto"}>
-                <TiDeleteOutline size={"auto"} fill="white" />
-              </Box>
-            </Button>
-          </Flex>
-          <Flex
-            bg={"lightblue"}
-            h={"6vh"}
-            mb={2}
-            borderRadius={"8pt"}
-            pl={3}
-            alignItems={"center"}
-          >
-            <Text color={"white"}>Notif</Text>
-            <Spacer />
-            <Button
-              justifySelf={"end"}
-              bg={"transparent"}
-              _hover={{ bg: "transparent", transform: "scale(1.1)" }}
-            >
-              <Box w={"22px"} h={"auto"}>
-                <TiDeleteOutline size={"auto"} fill="white" />
-              </Box>
-            </Button>
-          </Flex>
-          <Flex
-            bg={"lightblue"}
-            h={"6vh"}
-            mb={2}
-            borderRadius={"8pt"}
-            pl={3}
-            alignItems={"center"}
-          >
-            <Text color={"white"}>Notif</Text>
-            <Spacer />
-            <Button
-              justifySelf={"end"}
-              bg={"transparent"}
-              _hover={{ bg: "transparent", transform: "scale(1.1)" }}
-            >
-              <Box w={"22px"} h={"auto"}>
-                <TiDeleteOutline size={"auto"} fill="white" />
-              </Box>
-            </Button>
-          </Flex>
-          <Flex
-            bg={"lightblue"}
-            h={"6vh"}
-            mb={2}
-            borderRadius={"8pt"}
-            pl={3}
-            alignItems={"center"}
-          >
-            <Text color={"white"}>Notif</Text>
-            <Spacer />
-            <Button
-              justifySelf={"end"}
-              bg={"transparent"}
-              _hover={{ bg: "transparent", transform: "scale(1.1)" }}
-            >
-              <Box w={"22px"} h={"auto"}>
-                <TiDeleteOutline size={"auto"} fill="white" />
-              </Box>
-            </Button>
-          </Flex>
-          <Flex
-            bg={"lightblue"}
-            h={"6vh"}
-            mb={2}
-            borderRadius={"8pt"}
-            pl={3}
-            alignItems={"center"}
-          >
-            <Text color={"white"}>Notif</Text>
-            <Spacer />
-            <Button
-              justifySelf={"end"}
-              bg={"transparent"}
-              _hover={{ bg: "transparent", transform: "scale(1.1)" }}
-            >
-              <Box w={"22px"} h={"auto"}>
-                <TiDeleteOutline size={"auto"} fill="white" />
-              </Box>
-            </Button>
-          </Flex>
+          {notifications.length > 0 ? (
+            <>
+              {notifications.map((notif) => (
+                <Flex
+                  bg={"lightblue"}
+                  h={"6vh"}
+                  mb={2}
+                  borderRadius={"8pt"}
+                  pl={3}
+                  alignItems={"center"}
+                >
+                  <Text color={"#060640"} textAlign={"start"}>
+                    <strong>{notif.device_id}</strong> - {notif.message}
+                  </Text>
+                  <Spacer />
+                  {/* <Button
+                    justifySelf={"end"}
+                    bg={"transparent"}
+                    _hover={{ bg: "transparent", transform: "scale(1.1)" }}
+                  > */}
+                    <Button
+                      variant={"unstyled"}
+                      onClick={() => {
+                        pingDevice(notif.device_id);
+                      }}
+                      w={"22px"}
+                      h={"auto"}
+                      _hover={{ transform: "scale(1.05)" }}
+                    >
+                      <PiBellSimpleRinging size={"auto"} fill="#060640" />
+                    </Button>
+                    <Button
+                      variant={"unstyled"}
+                      onClick={() => {
+                        deleteNotif(notif.id);
+                      }}
+                      w={"22px"}
+                      h={"auto"}
+                      _hover={{ transform: "scale(1.05)" }}
+                    >
+                      <TiDeleteOutline size={"auto"} fill="#060640" />
+                    </Button>
+                  {/* </Button> */}
+                </Flex>
+              ))}
+            </>
+          ) : (
+            <>
+              <Text>Belum ada notifikasi</Text>
+            </>
+          )}
         </PopoverBody>
-        <PopoverFooter h={"3.5vh"}>
-          <Link to={"/notifications/:id"}>Show All</Link>
-        </PopoverFooter>
+        {notifications.length > 0 && (
+          <PopoverFooter h={"3.5vh"}>
+            <Link to={`/notifications`}>Show All</Link>
+          </PopoverFooter>
+        )}
       </PopoverContent>
     </Popover>
   );

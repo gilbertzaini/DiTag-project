@@ -8,10 +8,11 @@ import Register from "./Pages/register";
 import RegisterDevice from "./Pages/registerDevice";
 import Monitoring from "./Pages/monitoring";
 import Reviews from "./Pages/reviews";
-import LoginTest from "./Components/LoginTest";
 
 import SocketContext from "./Features/SocketContext";
 import { io } from "socket.io-client";
+import Notifications from "./Pages/notifications";
+
 
 const socket = io("https://api.punca.my.id");
 
@@ -28,7 +29,8 @@ function App() {
               <Route path="/device/register" element={<RegisterDevice />} />
               <Route path="/device/monitor" element={<Monitoring />} />
               <Route path="/reviews" element={<Reviews />} />
-              <Route path="/logintest" element={<LoginTest />} />
+              <Route path="/notifications" element={<Notifications />} />
+              {/* <Route path="/logintest" element={<LoginTest />} /> */}
             </Routes>
           </div>
         </BrowserRouter>
