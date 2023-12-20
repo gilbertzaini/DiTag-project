@@ -7,7 +7,7 @@ import "../map.css";
 import userMarker from "../Assets/userMarker.png";
 import deviceMarker from "../Assets/deviceMarker.png";
 import loading from "../Assets/loading.gif";
-import { Flex, Heading, Image, Text } from "@chakra-ui/react";
+import { Flex, Image, Text } from "@chakra-ui/react";
 import axios from "axios";
 import {useSelector} from "react-redux";
 
@@ -41,7 +41,7 @@ const Map = (props) => {
       const latitude = userLatitude;
       const longitude = userLongitude;
 
-      await axios.patch(`http://localhost:8080/users/coordinates/${id}`, {
+      await axios.patch(`https://api.punca.my.id/users/coordinates/${id}`, {
         latitude,
         longitude,
       });

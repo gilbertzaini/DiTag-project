@@ -14,7 +14,7 @@ const NotificationList = () => {
   const getNotif = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8080/notifications/${user.user_id}`
+        `https://api.punca.my.id/notifications/${user.user_id}`
       );
       console.log(response.data);
       setNotifications(response.data);
@@ -25,7 +25,7 @@ const NotificationList = () => {
 
   const deleteNotif = async (id) => {
     try {
-      await axios.delete(`http://localhost:8080/notifications/${id}`);
+      await axios.delete(`https://api.punca.my.id/notifications/${id}`);
       getNotif();
     } catch (e) {
       console.log(e.message);
@@ -34,9 +34,9 @@ const NotificationList = () => {
 
   const pingDevice = async (id) => {
     try {
-      await axios.post(`http://localhost:8080/device/ring/${id}`);
+      await axios.post(`https://api.punca.my.id/device/ring/${id}`);
       await new Promise((resolve) => setTimeout(resolve, 3000)); // 3 seconds delay
-      await axios.post(`http://localhost:8080/device/mute/${id}`);
+      await axios.post(`https://api.punca.my.id/device/mute/${id}`);
       console.log(`Ping request for ${id} sent`);
     } catch (e) {
       console.log(e.message);
