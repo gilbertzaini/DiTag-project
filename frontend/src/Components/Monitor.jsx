@@ -28,7 +28,7 @@ const Monitor = () => {
   // const [lastUpdate, setLastUpdate] = useState(null);
   const { user } = useSelector((state) => state.auth);
   const socket = useSocket();
-  const [currDevice, setCurrDevice] = useState(null);
+  // const [currDevice, setCurrDevice] = useState(null);
 
   const getDevices = async () => {
     if (user) {
@@ -85,46 +85,11 @@ const Monitor = () => {
   }, [deviceId]);
 
   useEffect(() => {
-    console.log("Socket connected:", socket.connected);
+    console.log(deviceLatitude);
+    console.log(deviceLongitude);
+  }, [deviceLatitude, deviceLongitude]);
 
-    socket.on("coordinateUpdated", (updatedData) => {
-      console.log("Coordinate updated:", updatedData);
-      setDevices(updatedData);
-
-      let newDevice;
-
-      for (let i = 0; i < devices.length; i++) {
-        console.log(devices[i].device_id);
-        if (devices[i].device_id === deviceId) {
-          newDevice = devices[i];
-          break;
-        }
-      }
-
-      if (newDevice) {
-        setCurrDevice(newDevice);
-      }
-
-      console.log(`new device: ${newDevice.data}`);
-
-      if (currDevice) {
-        setDeviceLatitude(currDevice.latitude);
-        setDeviceLongitude(currDevice.longitude);
-      }
-    });
-
-    return () => {
-      socket.off("coordinateUpdated");
-    };
-  }, [socket]);
-
-  // useEffect(() => {
-  //   console.log(deviceLatitude, deviceLongitude);
-  // }, [deviceLatitude, deviceLongitude]);
-
-  // useEffect(() => {
-  //   console.log(deviceId);
-  // }, [deviceId]);
+s
 
   return (
     <Box
