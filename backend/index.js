@@ -151,6 +151,11 @@ app.post("/review", async (req, res) => {
 
 app.patch("/coordinate/:device_id", async (req, res) => {
   try {
+    const coordinate = await Coordinate.findOne({
+      where: { device_id: req.params.device_id },
+    });
+    const oldLatitude = coordinate.latitude;
+    const oldLongitude = coordinate.longitude;
     const { latitude, longitude } = req.body;
 
     const response = await Coordinate.update(req.body, {
@@ -162,46 +167,64 @@ app.patch("/coordinate/:device_id", async (req, res) => {
     const device = await Device.findOne({
       where: { device_id: req.params.device_id },
     });
-    const user = await User.findOne({
-      where: { user_id: device.user_id },
-    });
 
-    if (user.latitude && user.longitude) {
-      const distance = geolib.getDistance(
-        { latitude: user.latitude, longitude: user.longitude },
-        { latitude, longitude }
-      );
+    // console.log(`
+    // \n\n
+    // oldLat: ${oldLatitude},
+    // oldLgn: ${oldLongitude},
+    // lat: ${latitude},
+    // lng: ${longitude}
+    // \n\n
+    // `)
 
-      if (distance > 20) {
-        const message = "You left your device behind";
+    if (
+      latitude !== oldLatitude &&
+      longitude !== oldLongitude
+    ) {
+      const user = await User.findOne({
+        where: { user_id: device.user_id },
+      });
 
-        const newNotif = await Notification.create({
-          user_id: user.user_id,
-          device_id: device.device_id,
-          message: message,
-        });
+      if (user.latitude && user.longitude) {
+        const distance = geolib.getDistance(
+          { latitude: user.latitude, longitude: user.longitude },
+          { latitude, longitude }
+        );
 
-        const notifications = await Notification.findAll({
-          where: { user_id: user.user_id },
-        });
+        if (distance > 20) {
+          const message = "You left your device behind";
 
-        io.emit("newNotification", notifications);
+          const newNotif = await Notification.create({
+            user_id: user.user_id,
+            device_id: device.device_id,
+            message: message,
+          });
+
+          const notifications = await Notification.findAll({
+            where: { user_id: user.user_id },
+          });
+
+          io.emit("newNotification", notifications);
+        }
       }
+    } else {
+      console.log("\n\n\nsame coordinate\n\n\n");
     }
 
     const devices = await Device.findAll({
       where: {
-        user_id: device.user_id
+        user_id: device.user_id,
       },
-      include: [{
-        model: Coordinate,
-        as: 'Coordinate',
-      },
-      {
-        model: User,
-        as: 'User'
-      }
-    ],
+      include: [
+        {
+          model: Coordinate,
+          as: "Coordinate",
+        },
+        {
+          model: User,
+          as: "User",
+        },
+      ],
     });
 
     io.emit("coordinateUpdated", devices);
