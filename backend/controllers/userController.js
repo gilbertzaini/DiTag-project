@@ -36,5 +36,19 @@ const deleteUser = async (req, res) => {
   }
 };
 
+const updateUserLocation = async (req, res) => {
+  try {
+    const {latitude, longitude} = req.body;
+    // console.log(req.body);
+    await User.update({latitude, longitude}, {
+      where: {
+        user_id: req.params.id
+      }
+    });
+    res.status(203).json({msg: "User position updated"});
+  } catch (e) {
+    console.log(`error: ${e.message}`);
+  }
+}
 
-module.exports = { getUsers, updateUser, deleteUser };
+module.exports = { getUsers, updateUser, deleteUser, updateUserLocation };

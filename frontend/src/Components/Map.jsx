@@ -8,12 +8,16 @@ import userMarker from "../Assets/userMarker.png";
 import deviceMarker from "../Assets/deviceMarker.png";
 import loading from "../Assets/loading.gif";
 import { Flex, Heading, Image, Text } from "@chakra-ui/react";
+import axios from "axios";
+import {useSelector} from "react-redux";
 
 const Map = (props) => {
   const [userLatitude, setUserLatitude] = useState(null);
   const [userLongitude, setUserLongitude] = useState(null);
   const [distance, setDistance] = useState();
   const deviceMarkerRef = useRef(null);
+  const [get, setGet] = useState(false);
+  const { user } = useSelector((state) => state.auth);
 
   const getUserLocation = () => {
     if (navigator.geolocation) {
@@ -21,6 +25,7 @@ const Map = (props) => {
         (position) => {
           setUserLatitude(position.coords.latitude);
           setUserLongitude(position.coords.longitude);
+          setGet(true);
         },
         (error) => {
           console.error("Error getting user location:", error);
@@ -31,12 +36,32 @@ const Map = (props) => {
     }
   };
 
+  const updateUserLocation = async (id) => {
+    try {
+      const latitude = userLatitude;
+      const longitude = userLongitude;
+
+      await axios.patch(`http://localhost:8080/users/coordinates/${id}`, {
+        latitude,
+        longitude,
+      });
+      console.log("User location updated");
+    } catch (e) {
+      console.log(e.message);
+    }
+  };
+
   useEffect(() => {
     getUserLocation();
     const interval = setInterval(getUserLocation, 5000);
 
     return () => clearInterval(interval);
   }, []);
+
+  useEffect(() => {
+    updateUserLocation(user.user_id);
+    setGet(false);
+  }, [get]);
 
   const deviceIcon = new Icon({
     iconUrl: deviceMarker,

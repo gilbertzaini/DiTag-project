@@ -1,31 +1,18 @@
-const {Coordinate} = require("../models");
-const {where} = require("sequelize");
+const { Coordinate, User, Device, Notification } = require("../models");
+const { where } = require("sequelize");
+const geolib = require("geolib");
 
-const getDeviceCoordinate = async(req, res) => {
-    try{
-        const response = await Coordinate.findOne({
-            where: {
-                device_id: req.params.device_id,
-            }
-        });
-        res.status(200).json(response);
-    }catch(e){
-        console.log(e.message);
-    }
-}
+const getDeviceCoordinate = async (req, res) => {
+  try {
+    const response = await Coordinate.findOne({
+      where: {
+        device_id: req.params.device_id,
+      },
+    });
+    res.status(200).json(response);
+  } catch (e) {
+    console.log(e.message);
+  }
+};
 
-const updateCoordinate = async(req, res) => {
-    try{
-        const response = await Coordinate.update(req.body, {
-            where: {
-                device_id: req.params.device_id,
-            }
-        });
-        io.emit('coordinateUpdated', devices);
-        res.status(204).json({msg: "Coordinate Updated"});
-    }catch(e){
-        console.log(e.message);
-    }
-}
-
-module.exports = {getDeviceCoordinate, updateCoordinate};
+module.exports = { getDeviceCoordinate };
