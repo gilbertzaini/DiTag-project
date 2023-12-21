@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import {
+  Box,
   Popover,
   PopoverTrigger,
   PopoverContent,
@@ -80,15 +81,20 @@ const NotificationHover = (props) => {
       closeOnBlur={false}
     >
       <PopoverTrigger>
-        <Button
-          h={"3.5em"}
-          bg={"#060640"}
-          color={"#FFFFFF"}
-          fontWeight={"normal"}
-          _hover={"transform: scale(1.1)"}
-        >
-          Notifications
-        </Button>
+        <Box pos={"relative"}>
+          <Button
+            h={"3.5em"}
+            bg={"#060640"}
+            color={"#FFFFFF"}
+            fontWeight={"normal"}
+            _hover={"transform: scale(1.1)"}
+          >
+            Notifications
+          </Button>
+          <Flex position={"absolute"} top={-2} right={-2} justify={"center"} align={"center"} bg={"red"} borderRadius={"50%"} width={"1.4rem"} height={"1.4rem"}>
+            <Text color={"#FFFFFF"}>{notifications.length}</Text>
+          </Flex>
+        </Box>
       </PopoverTrigger>
       <PopoverContent
         color="#060640"
@@ -123,28 +129,28 @@ const NotificationHover = (props) => {
                     bg={"transparent"}
                     _hover={{ bg: "transparent", transform: "scale(1.1)" }}
                   > */}
-                    <Button
-                      variant={"unstyled"}
-                      onClick={() => {
-                        pingDevice(notif.device_id);
-                      }}
-                      w={"22px"}
-                      h={"auto"}
-                      _hover={{ transform: "scale(1.05)" }}
-                    >
-                      <PiBellSimpleRinging size={"auto"} fill="#060640" />
-                    </Button>
-                    <Button
-                      variant={"unstyled"}
-                      onClick={() => {
-                        deleteNotif(notif.id);
-                      }}
-                      w={"22px"}
-                      h={"auto"}
-                      _hover={{ transform: "scale(1.05)" }}
-                    >
-                      <TiDeleteOutline size={"auto"} fill="#060640" />
-                    </Button>
+                  <Button
+                    variant={"unstyled"}
+                    onClick={() => {
+                      pingDevice(notif.device_id);
+                    }}
+                    w={"22px"}
+                    h={"auto"}
+                    _hover={{ transform: "scale(1.05)" }}
+                  >
+                    <PiBellSimpleRinging size={"auto"} fill="#060640" />
+                  </Button>
+                  <Button
+                    variant={"unstyled"}
+                    onClick={() => {
+                      deleteNotif(notif.id);
+                    }}
+                    w={"22px"}
+                    h={"auto"}
+                    _hover={{ transform: "scale(1.05)" }}
+                  >
+                    <TiDeleteOutline size={"auto"} fill="#060640" />
+                  </Button>
                   {/* </Button> */}
                 </Flex>
               ))}

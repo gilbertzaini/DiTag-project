@@ -70,7 +70,7 @@ const NotificationList = () => {
     <>
       {notifications.length > 0 ? (
         <Box>
-          <Heading mt={"10%"} fontSize={"3rem"}>
+          <Heading mt={{base: "30%", lg: "10%"}} fontSize={"3rem"}>
             Notifications
           </Heading>
           <Text fontSize={"0.8rem"} mb={"3%"}>Let your devices reach you</Text>
@@ -84,10 +84,10 @@ const NotificationList = () => {
               pl={3}
               alignItems={"center"}
               mx={"auto"}
-              w={"60%"}
+              w={{base: "80%", lg: "60%"}}
               px={5}
             >
-              <Text color={"#060640"} fontSize={"100%"} textAlign={"start"}>
+              <Text color={"#060640"} fontSize={{base: "10pt", lg: "100%"}} textAlign={"start"}>
                 <strong>{notif.device_id}</strong> - {notif.message} ({dateFormat(notif.createdAt)})
               </Text>
               <Spacer />
@@ -101,7 +101,7 @@ const NotificationList = () => {
                 onClick={() => {
                   pingDevice(notif.device_id);
                 }}
-                w={"22px"}
+                w={{base: "10px", lg:"22px"}}
                 h={"auto"}
                 _hover={{ transform: "scale(1.05)" }}
               >
@@ -112,7 +112,7 @@ const NotificationList = () => {
                 onClick={() => {
                   deleteNotif(notif.id);
                 }}
-                w={"22px"}
+                w={{base: "10px", lg:"22px"}}
                 h={"auto"}
                 _hover={{ transform: "scale(1.05)" }}
               >
@@ -123,8 +123,8 @@ const NotificationList = () => {
           ))}
         </Box>
       ) : (
-        <Flex alignItems={"center"} textAlign={"center"}>
-          <Heading>Belum ada notifikasi</Heading>
+        <Flex w={"fit-content"} mx={"auto"} h={"100vh"} alignItems={"center"} textAlign={"center"}>
+          <Heading textAlign={"center"}>Belum ada notifikasi</Heading>
         </Flex>
       )}
     </>

@@ -14,7 +14,8 @@ import Map from "./Map";
 import { useSelector } from "react-redux";
 import { Link as ReactLink } from "react-router-dom";
 import { useSocket } from "../Features/SocketContext";
-import { RiEditFill, RiDeleteBin5Line } from "react-icons/ri";
+import { RiDeleteBin5Line } from "react-icons/ri";
+import { PiBellSimpleRinging } from "react-icons/pi";
 
 const Monitor = () => {
   const [devices, setDevices] = useState([]);
@@ -32,7 +33,7 @@ const Monitor = () => {
     if (user) {
       try {
         const response = await axios.get(
-          `https://api.punca.my.id/device/${user.user_id}`
+          `http://localhost:8080/device/${user.user_id}`
         );
         setDevices(response.data);
         // console.log(response.data);
@@ -59,12 +60,32 @@ const Monitor = () => {
 
   const deleteDevice = async (id) => {
     try {
-      await axios.delete(`https://api.punca.my.id/device/${id}`);
+      await axios.delete(`http://localhost:8080/device/${id}`);
       console.log("deleted");
       getDevices();
     } catch (e) {
       console.log(e.message);
     }
+  };
+  const pingDevice = async (id) => {
+    try {
+      await axios.post(`http://localhost:8080/device/ring/${id}`);
+      await new Promise((resolve) => setTimeout(resolve, 3000)); // 3 seconds delay
+      await axios.post(`http://localhost:8080/device/mute/${id}`);
+      console.log(`Ping request for ${id} sent`);
+    } catch (e) {
+      console.log(e.message);
+    }
+  };
+
+  const formatTimeDifference = (updatedAtDate) => {
+    const now = new Date();
+    const timeDifferenceMilliseconds = now - updatedAtDate;
+    const hours = Math.floor(timeDifferenceMilliseconds / 3600000);
+    const minutes = Math.floor((timeDifferenceMilliseconds % 3600000) / 60000);
+    return `${hours.toString().padStart(2, "0")}:${minutes
+      .toString()
+      .padStart(2, "0")}`;
   };
 
   // useEffect(() => {
@@ -189,7 +210,7 @@ const Monitor = () => {
                         >
                           {device.name}
                         </Text>
-                        <Text
+                        {/* <Text
                           color="black"
                           fontSize={{ base: "0.65rem", xl: "0.75rem" }}
                         >
@@ -200,21 +221,23 @@ const Monitor = () => {
                           fontSize={{ base: "0.65rem", xl: "0.75rem" }}
                         >
                           Status: {device.status}
-                        </Text>
+                        </Text> */}
                         <Text
                           color="black"
                           fontSize={{ base: "0.65rem", xl: "0.75rem" }}
                         >
-                          {/* {new Date(device.updatedAt) - new Date()} */}
-                          {new Date(device.updatedAt).toLocaleString()}
+                          {formatTimeDifference(new Date(device.updatedAt))} ago
                         </Text>
                       </Flex>
-                      <Flex direction={"column"} align={"center"}>
+                      <Flex align={"center"}>
                         <Button
                           variant={"unstyled"}
                           _hover={{ transform: "scale(1.1)" }}
+                          onClick={() => {
+                            pingDevice(device.device_id);
+                          }}
                         >
-                          <RiEditFill size={"20px"} />
+                          <PiBellSimpleRinging size={"20px"} />
                         </Button>
                         <Button
                           variant={"unstyled"}
