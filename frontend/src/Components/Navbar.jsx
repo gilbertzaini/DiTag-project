@@ -79,7 +79,7 @@ const Navbar = () => {
                       </MenuItem>
 
                       <MenuItem>
-                        <Text ml={4}>Notifications</Text>
+                        <ReactLink to="/notifications" ml={4}>Notifications</ReactLink>
                       </MenuItem>
                     </>
                   ) : (
@@ -122,7 +122,7 @@ const Navbar = () => {
 
             <Box>
               {user ? (
-                <>
+                <Flex align={"center"} justify={"space-between"}>
                   <Button
                     onClick={logout}
                     mx={3}
@@ -144,7 +144,7 @@ const Navbar = () => {
                     Notifications
                   </Button> */}
                   <NotificationHover/>
-                </>
+                </Flex>
               ) : (
                 <>
                   <ReactLink to="/reviews">Reviews</ReactLink>
