@@ -17,6 +17,7 @@ import { useSocket } from "../Features/SocketContext";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { PiBellSimpleRinging } from "react-icons/pi";
 
+
 const Monitor = () => {
   const [devices, setDevices] = useState([]);
   const [deviceLatitude, setDeviceLatitude] = useState(null);
@@ -33,7 +34,7 @@ const Monitor = () => {
     if (user) {
       try {
         const response = await axios.get(
-          `http://localhost:8080/device/${user.user_id}`
+          `https://api.punca.my.id/device/${user.user_id}`
         );
         setDevices(response.data);
         // console.log(response.data);
@@ -60,34 +61,13 @@ const Monitor = () => {
 
   const deleteDevice = async (id) => {
     try {
-      await axios.delete(`http://localhost:8080/device/${id}`);
+      await axios.delete(`https://api.punca.my.id/device/${id}`);
       console.log("deleted");
       getDevices();
     } catch (e) {
       console.log(e.message);
     }
   };
-  const pingDevice = async (id) => {
-    try {
-      await axios.post(`http://localhost:8080/device/ring/${id}`);
-      await new Promise((resolve) => setTimeout(resolve, 3000)); // 3 seconds delay
-      await axios.post(`http://localhost:8080/device/mute/${id}`);
-      console.log(`Ping request for ${id} sent`);
-    } catch (e) {
-      console.log(e.message);
-    }
-  };
-
-  const formatTimeDifference = (updatedAtDate) => {
-    const now = new Date();
-    const timeDifferenceMilliseconds = now - updatedAtDate;
-    const hours = Math.floor(timeDifferenceMilliseconds / 3600000);
-    const minutes = Math.floor((timeDifferenceMilliseconds % 3600000) / 60000);
-    return `${hours.toString().padStart(2, "0")}:${minutes
-      .toString()
-      .padStart(2, "0")}`;
-  };
-
   const pingDevice = async (id) => {
     try {
       await axios.post(`https://api.punca.my.id/device/ring/${id}`);

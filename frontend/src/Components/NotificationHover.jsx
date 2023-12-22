@@ -91,7 +91,18 @@ const NotificationHover = (props) => {
           >
             Notifications
           </Button>
-          <Flex position={"absolute"} top={-2} right={-2} justify={"center"} align={"center"} bg={"red"} borderRadius={"50%"} width={"1.4rem"} height={"1.4rem"}>
+          <Flex
+            display={notifications.length > 0 ? "block" : "none"}
+            position={"absolute"}
+            top={-2}
+            right={-2}
+            justify={"center"}
+            align={"center"}
+            bg={"red"}
+            borderRadius={"50%"}
+            width={"1.4rem"}
+            height={"1.4rem"}
+          >
             <Text color={"#FFFFFF"}>{notifications.length}</Text>
           </Flex>
         </Box>

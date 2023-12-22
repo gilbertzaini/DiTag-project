@@ -37,10 +37,10 @@ const login = async (req, res) => {
     const match = await bcrypt.compare(req.body.password, user.password);
     if (!match) return res.status(401).json({ msg: "Credential Error" });
 
-    // Generate a unique token for "Remember Me" functionality
+    // rememberMe token
     const rememberMeToken = uuidv4();
 
-    // Set the token as a cookie with a long expiration time (e.g., 7 days)
+    // 7 days expiration
     res.cookie("rememberMe", rememberMeToken, {
       maxAge: 7 * 24 * 60 * 60 * 1000,
       httpOnly: true,
